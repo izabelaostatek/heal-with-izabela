@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heal with Izabela | Gut Health, Sleep & Wellness Coaching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --cream-mid: #F0EBE3;
+      --gold: #C9A96E;
+      --gold-dark: #B8956A;
+      --brown: #2C2420;
+      --sage: #8B9E7A;
+      --taupe: #E8E0D5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(201,169,110,0.2); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.5s, border-color 0.5s;
+    }
+    nav.scrolled {
+      background: rgba(250,248,245,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--taupe);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 0.04em; color: var(--brown); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(44,36,32,0.6); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--brown); }
+    .nav-cta {
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      background: var(--gold); color: #fff; padding: 12px 28px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(to bottom, var(--cream) 70%, var(--cream-mid));
+    }
+    .hero-orb-1 {
+      position: absolute; top: 20%; left: -8%;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,158,122,0.07), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-orb-2 {
+      position: absolute; bottom: 25%; right: -6%;
+      width: 440px; height: 440px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,110,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 800px; }
+    .eyebrow {
+      font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 40px;
+      animation: fadeUp 1s ease-out both;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.05; margin-bottom: 32px; color: var(--brown);
+      animation: fadeUp 1s ease-out 0.15s both;
+    }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 14px; font-weight: 300; color: rgba(44,36,32,0.58);
+      line-height: 1.8; max-width: 460px; margin: 0 auto 56px;
+      animation: fadeUp 1s ease-out 0.3s both;
+    }
+    .hero-ctas {
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center;
+      animation: fadeUp 1s ease-out 0.45s both;
+    }
+    .btn-primary {
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      background: var(--gold); color: #fff; padding: 16px 48px;
+      text-decoration: none; transition: background 0.3s;
+    }
+    .btn-primary:hover { background: var(--gold-dark); }
+    .btn-ghost {
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(44,36,32,0.45); text-decoration: none;
+      border-bottom: 1px solid rgba(44,36,32,0.18); padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .btn-ghost:hover { color: var(--brown); border-color: rgba(44,36,32,0.4); }
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: fadeUp 1s ease-out 0.6s both;
+    }
+    .scroll-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(44,36,32,0.28); }
+    .scroll-line-wrap { width: 1px; height: 40px; overflow: hidden; background: rgba(201,169,110,0.15); }
+    .scroll-line-inner { width: 1px; height: 100%; background: var(--gold); animation: scrollDown 2s ease-in-out infinite; }
+
+    /* ── POSITIONING ── */
+    .positioning {
+      padding: 120px 24px;
+      background: var(--brown); color: var(--cream);
+      text-align: center;
+    }
+    .gold-line { width: 1px; height: 64px; background: var(--gold); margin: 0 auto 48px; }
+    .gold-line-short { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 48px; }
+    .positioning h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.3; margin-bottom: 28px; color: var(--cream);
+    }
+    .positioning h2 em { font-style: italic; }
+    .positioning p {
+      font-size: 14px; font-weight: 300; color: rgba(250,248,245,0.55);
+      line-height: 1.8; max-width: 500px; margin: 0 auto 20px;
+    }
+    .positioning blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      color: rgba(250,248,245,0.88); line-height: 1.5;
+      max-width: 640px; margin: 0 auto 40px;
+    }
+    .btn-outline {
+      display: inline-block; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      border: 1px solid var(--gold); color: var(--gold); padding: 16px 40px;
+      text-decoration: none; transition: background 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { background: var(--gold); color: #fff; }
+
+    /* ── WHO IT'S FOR ── */
+    .who { padding: 120px 24px; background: var(--cream); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-label {
+      font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 20px; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2; color: var(--brown);
+    }
+    .section-title em { font-style: italic; }
+    .grid-2 {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--taupe);
+      max-width: 900px; margin: 0 auto;
+    }
+    .card {
+      background: var(--cream); padding: 56px;
+    }
+    .card-num {
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 24px;
+    }
+    .card-rule { width: 32px; height: 1px; background: var(--gold); margin-bottom: 24px; }
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 1.6rem; line-height: 1.2;
+      margin-bottom: 16px; color: var(--brown);
+    }
+    .card p { font-size: 13px; color: rgba(44,36,32,0.55); line-height: 1.8; }
+    .center-cta { text-align: center; margin-top: 56px; }
+
+    /* ── SERVICES ── */
+    .services { padding: 120px 24px; background: var(--cream-mid); }
+    .services-header { text-align: center; margin-bottom: 72px; }
+    .grid-3 {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1000px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--cream); padding: 40px;
+      display: flex; flex-direction: column;
+    }
+    .service-top {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;
+    }
+    .service-num { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+    .service-tag {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(44,36,32,0.3); border: 1px solid rgba(44,36,32,0.12);
+      padding: 4px 10px;
+    }
+    .service-rule { width: 24px; height: 1px; background: var(--gold); margin-bottom: 24px; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 1.8rem; margin-bottom: 16px; color: var(--brown);
+    }
+    .service-card p {
+      font-size: 13px; color: rgba(44,36,32,0.55); line-height: 1.8;
+      flex: 1; margin-bottom: 28px;
+    }
+    .service-link {
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(44,36,32,0.45); text-decoration: none;
+      border-bottom: 1px solid rgba(44,36,32,0.15); padding-bottom: 4px; width: fit-content;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .service-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── ABOUT ── */
+    .about { padding: 120px 24px; background: var(--cream); }
+    .about-inner {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      aspect-ratio: 3/4; background: var(--cream-mid);
+      border: 1px solid var(--taupe);
+      display: flex; align-items: flex-end; padding: 24px;
+    }
+    .about-img span { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(44,36,32,0.22); }
+    .about-img-shadow {
+      position: absolute; bottom: -16px; right: -16px;
+      width: 100%; height: 100%; border: 1px solid var(--taupe); z-index: -1;
+    }
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2; margin-bottom: 28px; color: var(--brown);
+    }
+    .about-text h2 em { font-style: italic; }
+    .about-text p { font-size: 13px; color: rgba(44,36,32,0.58); line-height: 1.9; margin-bottom: 18px; }
+
+    /* ── FAQ ── */
+    .faq { padding: 120px 24px; background: var(--cream-mid); }
+    .faq-inner { max-width: 680px; margin: 0 auto; }
+    .faq-item { border-top: 1px solid var(--taupe); }
+    .faq-item.faq-last { border-bottom: 1px solid var(--taupe); }
+    .faq-q {
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 28px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+      text-align: left;
+    }
+    .faq-q span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400; font-size: 1.2rem; color: var(--brown); line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .faq-q:hover span:first-child { color: var(--gold); }
+    .faq-icon { color: var(--gold); font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; line-height: 1; }
+    .faq-a {
+      overflow: hidden; max-height: 0; transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .faq-a.open { max-height: 200px; padding-bottom: 28px; }
+    .faq-a p { font-size: 13px; color: rgba(44,36,32,0.58); line-height: 1.9; }
+
+    /* ── LEAD MAGNET ── */
+    .lead { padding: 120px 24px; background: var(--brown); text-align: center; }
+    .lead h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2.2rem, 4vw, 3.2rem);
+      color: var(--cream); line-height: 1.2; margin-bottom: 20px;
+    }
+    .lead h2 em { font-style: italic; }
+    .lead p { font-size: 14px; font-weight: 300; color: rgba(250,248,245,0.5); line-height: 1.8; max-width: 400px; margin: 0 auto 48px; }
+    .lead-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto; }
+    .lead-form input {
+      flex: 1; background: transparent; border: 1px solid rgba(250,248,245,0.18);
+      color: var(--cream); padding: 16px 20px; font-family: 'Inter', sans-serif;
+      font-size: 13px; outline: none; transition: border-color 0.2s;
+    }
+    .lead-form input::placeholder { color: rgba(250,248,245,0.28); }
+    .lead-form input:focus { border-color: var(--gold); }
+    .lead-form button {
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      background: var(--gold); color: #fff; padding: 16px 28px; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; white-space: nowrap; transition: background 0.3s;
+    }
+    .lead-form button:hover { background: var(--gold-dark); }
+    .lead-note { font-size: 10px; color: rgba(250,248,245,0.22); letter-spacing: 0.05em; margin-top: 20px; }
+
+    /* ── FOOTER ── */
+    .footer-cta {
+      padding: 96px 24px; text-align: center; background: var(--cream);
+      border-top: 1px solid var(--taupe); border-bottom: 1px solid var(--taupe);
+    }
+    .footer-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--brown); margin-bottom: 24px;
+    }
+    .footer-cta p { font-size: 14px; color: rgba(44,36,32,0.48); margin-bottom: 40px; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+    .footer-bar {
+      background: var(--cream); padding: 36px 40px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; letter-spacing: 0.04em; color: var(--brown); }
+    .footer-copy { font-size: 10px; color: rgba(44,36,32,0.28); letter-spacing: 0.04em; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(44,36,32,0.38); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--brown); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollDown {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* ── MOBILE MENU ── */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1px; background: var(--brown);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream); z-index: 40; flex-direction: column;
+      align-items: center; justify-content: center; gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(44,36,32,0.6); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--brown); }
+    .mobile-menu .nav-cta { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      /* Hero */
+      .hero { padding: 100px 20px 72px; }
+      .hero h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+      .hero-sub { font-size: 13px; max-width: 100%; }
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
+      .btn-ghost { width: 100%; text-align: center; }
+
+      /* Sections — reduce vertical padding */
+      .positioning { padding: 72px 20px; }
+      .who { padding: 72px 20px; }
+      .services { padding: 72px 20px; }
+      .about { padding: 72px 20px; }
+      .faq { padding: 72px 20px; }
+      .lead { padding: 72px 20px; }
+      .footer-cta { padding: 64px 20px; }
+
+      /* Cards */
+      .card { padding: 32px 24px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; gap: 16px; }
+      .service-card { padding: 32px 24px; }
+
+      /* About */
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-shadow { display: none; }
+      .about-text .btn-primary { width: 100%; text-align: center; }
+
+      /* FAQ */
+      .faq-inner { max-width: 100%; }
+      .faq-q span:first-child { font-size: 1.05rem; }
+
+      /* Lead */
+      .lead-form { flex-direction: column; }
+      .lead-form button { width: 100%; }
+
+      /* Footer */
+      .footer-bar { flex-direction: column; text-align: center; padding: 28px 20px; gap: 16px; }
+      .footer-links { justify-content: center; gap: 24px; }
+
+      /* Section headers */
+      .section-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+      .positioning h2 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+      .footer-cta h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+      .lead h2 { font-size: clamp(2rem, 7vw, 2.8rem); }
+      .about-text h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+      .positioning blockquote { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+
+      /* Section labels & gold lines */
+      .services-header .gold-line { display: none; }
+      .center-cta .btn-primary { width: 100%; text-align: center; }
+      .btn-outline { width: 100%; text-align: center; display: block; box-sizing: border-box; }
+
+      /* Remove decorative orbs on mobile */
+      .hero-orb-1, .hero-orb-2 { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#who" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#footer-cta" class="nav-cta" onclick="closeMenu()">Book a free call</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Heal with Izabela</a>
+  <div class="nav-links">
+    <a href="#who">About</a>
+    <a href="#services">Services</a>
+    <a href="#faq">FAQ</a>
+    <a href="#footer-cta" class="nav-cta">Book a free call</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Wellness Coaching · Retreats · Digital Programs</p>
+    <h1>
+      You've done<br>everything right.<br>
+      <em>You're still exhausted.</em>
+    </h1>
+    <p class="hero-sub">
+      Gut issues. Broken sleep. Inflammation that won't quit. You've tried the protocols. The supplements. Maybe a coach. If you're still here — something didn't work. That changes now.
+    </p>
+    <div class="hero-ctas">
+      <a href="#footer-cta" class="btn-primary">Book a free call</a>
+      <a href="#guide" class="btn-ghost">Get the free gut reset guide</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line-wrap"><div class="scroll-line-inner"></div></div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="positioning">
+  <div class="gold-line"></div>
+  <h2>The wellness space has no shortage<br><em>of coaches who don't deliver.</em></h2>
+  <p>Most sell information you could find for free. A plan handed over on a call, a PDF you never open, check-ins that trail off after week three.</p>
+  <p>I work differently. I go deep, I stay with you, and I don't take clients I don't believe I can genuinely help.</p>
+  <div class="gold-line-short" style="margin-top:48px;"></div>
+  <blockquote>"This isn't for everyone. But if you're ready to actually do the work —<br>I'll show you exactly how."</blockquote>
+  <a href="#footer-cta" class="btn-outline">See if we're a fit</a>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who" id="who">
+  <div class="section-header">
+    <span class="section-label">Who this is for</span>
+    <h2 class="section-title">If any of this sounds familiar,<br><em>you're in the right place.</em></h2>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <span class="card-num">01</span>
+      <div class="card-rule"></div>
+      <h3>Your gut is running the show</h3>
+      <p>Bloating, discomfort, food sensitivities you navigate around every day. This has become your normal — but it shouldn't be.</p>
+    </div>
+    <div class="card">
+      <span class="card-num">02</span>
+      <div class="card-rule"></div>
+      <h3>You're sleeping but not recovering</h3>
+      <p>Wired at midnight, exhausted by 10am. High cortisol, disrupted rhythms. You wake up already behind.</p>
+    </div>
+    <div class="card">
+      <span class="card-num">03</span>
+      <div class="card-rule"></div>
+      <h3>Your body is inflamed and you can feel it</h3>
+      <p>Joint stiffness, brain fog, skin flares, weight you can't shift. Inflammation sits underneath all of it.</p>
+    </div>
+    <div class="card">
+      <span class="card-num">04</span>
+      <div class="card-rule"></div>
+      <h3>Your energy crashed and hasn't come back</h3>
+      <p>You've tried cutting things out, adding things in. Still running on empty. Ready to understand why.</p>
+    </div>
+  </div>
+  <div class="center-cta">
+    <a href="#footer-cta" class="btn-primary">Book a free call</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="gold-line" style="margin-bottom:40px;"></div>
+    <span class="section-label">Ways to work together</span>
+    <h2 class="section-title">One step at a time.<br><em>Your pace, your way.</em></h2>
+  </div>
+  <div class="grid-3">
+    <div class="service-card">
+      <div class="service-top">
+        <span class="service-num">01</span>
+        <span class="service-tag">Most personal</span>
+      </div>
+      <div class="service-rule"></div>
+      <h3>1:1 Coaching</h3>
+      <p>A protocol built entirely around you — your gut, your sleep, your cortisol, your history. We go deep and stay there until it shifts. Limited spots open each quarter.</p>
+      <a href="#footer-cta" class="service-link">Apply to work together →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-top">
+        <span class="service-num">02</span>
+        <span class="service-tag">Coming soon</span>
+      </div>
+      <div class="service-rule"></div>
+      <h3>Retreats</h3>
+      <p>Immersive experiences in locations chosen for their capacity to restore. Real rest. Guided protocols. Spaces designed to heal as much as the programs inside them.</p>
+      <a href="#guide" class="service-link">Join the waitlist →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-top">
+        <span class="service-num">03</span>
+        <span class="service-tag">Start today</span>
+      </div>
+      <div class="service-rule"></div>
+      <h3>Digital Products</h3>
+      <p>Self-paced guides and protocols you can begin immediately. Everything I'd tell a 1:1 client in the first four weeks, packaged so you can start now.</p>
+      <a href="#guide" class="service-link">Browse the shop →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner">
+    <div class="about-img-wrap">
+      <div class="about-img">
+        <span>Your photo here</span>
+      </div>
+      <div class="about-img-shadow"></div>
+    </div>
+    <div class="about-text">
+      <span class="section-label">About Izabela</span>
+      <div style="width:32px;height:1px;background:var(--gold);margin-bottom:28px;"></div>
+      <h2>I know what it feels like<br><em>to live in a body that isn't working.</em></h2>
+      <p>I'm an architect, interior designer and wellness coach. I've spent years working at the intersection of how spaces affect health — and how deeply your internal environment shapes everything else.</p>
+      <p>I got into this work because I went through it myself. The exhaustion, the gut issues, the feeling of doing everything right and still not recovering. I found what works — and I build that into every protocol.</p>
+      <p>I work with people who are serious about change. Not looking for a quick fix. Ready to understand their body and commit to the process.</p>
+      <a href="#footer-cta" class="btn-primary" style="margin-top:16px;display:inline-block;">Book a free call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="section-header">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Questions worth asking<br><em>before you commit.</em></h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>How is this different from other wellness coaches?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>Most coaches sell a generic plan and move on. I build a protocol around your specific symptoms, history and lifestyle — and I stay with you through the process. Gut, sleep, cortisol and inflammation are treated together, not in isolation.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>I've tried so many things. Why would this be different?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>Because most approaches treat symptoms, not root causes. If you've been addressing sleep without looking at cortisol, or fixing your diet without understanding your gut environment, results won't stick. We go deeper.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>How long before I see real results?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>Most clients notice meaningful shifts within 4–6 weeks. Full protocols run 3–6 months depending on where you're starting from. I'll be honest with you about timelines from the first call.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Do I need to change everything at once?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>No. We prioritise what will give you the fastest traction and build from there. The goal is sustainable change, not a dramatic overhaul you can't maintain.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Is coaching available online?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>Yes. 1:1 coaching is fully online, available worldwide. Retreats are in-person at curated locations. Digital products are self-paced and accessible immediately after purchase.</p></div>
+    </div>
+
+    <div class="faq-item faq-last">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Is this coaching or medical treatment?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><p>This is wellness coaching, not medical treatment or diagnosis. I work alongside your medical care, not instead of it. If you're dealing with a diagnosed condition, I'll always encourage you to keep your doctor in the loop.</p></div>
+    </div>
+
+    <div class="center-cta" style="margin-top:56px;">
+      <p style="font-size:13px;color:rgba(44,36,32,0.45);margin-bottom:20px;">Still have questions?</p>
+      <a href="#footer-cta" class="btn-primary">Book a free call</a>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="lead" id="guide">
+  <div class="gold-line"></div>
+  <span class="section-label" style="color:var(--gold);">Free resource</span>
+  <h2 style="margin-top:20px;">The Gut Reset<br><em>Starter Guide</em></h2>
+  <p>Understand what's actually driving your symptoms — and where to start. The first thing I share with every new client, free.</p>
+  <form class="lead-form" onsubmit="handleSubmit(event)">
+    <input type="email" placeholder="Your email address" required />
+    <button type="submit">Send it to me</button>
+  </form>
+  <p class="lead-note">No spam. Unsubscribe anytime.</p>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta" id="footer-cta">
+  <span class="section-label">Ready to start?</span>
+  <h2>Let's see if we're a fit.</h2>
+  <p>A free 30-minute call to understand where you are, where you want to be, and whether I can help.</p>
+  <a href="mailto:hello@healwithizabela.com" class="btn-primary">Book a free call</a>
+</div>
+
+<!-- FOOTER BAR -->
+<footer class="footer-bar">
+  <span class="footer-logo">Heal with Izabela</span>
+  <span class="footer-copy">© 2026 Heal with Izabela. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Privacy</a>
+    <a href="mailto:hello@healwithizabela.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav')
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40)
+  })
+
+  // Mobile menu
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu')
+    const btn = document.getElementById('hamburger')
+    menu.classList.toggle('open')
+    btn.classList.toggle('open')
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open')
+    document.getElementById('hamburger').classList.remove('open')
+  }
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling
+    const icon = btn.querySelector('.faq-icon')
+    const isOpen = answer.classList.contains('open')
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'))
+    document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+')
+    if (!isOpen) {
+      answer.classList.add('open')
+      icon.textContent = '−'
+    }
+  }
+
+  // Lead form
+  function handleSubmit(e) {
+    e.preventDefault()
+    const form = e.target
+    form.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.4rem;color:var(--cream);">It\'s on its way. Check your inbox.</p>'
+  }
+</script>
+
+</body>
+</html>
