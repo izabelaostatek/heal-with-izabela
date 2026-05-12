@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -423,7 +425,7 @@
   <a href="#who" onclick="closeMenu()">About</a>
   <a href="#services" onclick="closeMenu()">Services</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="#footer-cta" class="nav-cta" onclick="closeMenu()">Book a free call</a>
+  <a href="javascript:void(0)" onclick="closeMenu(); bookCall()" class="nav-cta">Book a free call</a>
 </div>
 
 <!-- NAV -->
@@ -433,7 +435,7 @@
     <a href="#who">About</a>
     <a href="#services">Services</a>
     <a href="#faq">FAQ</a>
-    <a href="#footer-cta" class="nav-cta">Book a free call</a>
+    <a href="javascript:void(0)" onclick="bookCall()" class="nav-cta">Book a free call</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
     <span></span><span></span><span></span>
@@ -454,7 +456,7 @@
       Gut issues. Broken sleep. Inflammation that won't quit. You've tried the protocols. The supplements. Maybe a coach. If you're still here — something didn't work. That changes now.
     </p>
     <div class="hero-ctas">
-      <a href="#footer-cta" class="btn-primary">Book a free call</a>
+      <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary">Book a free call</a>
       <a href="#guide" class="btn-ghost">Get the free gut reset guide</a>
     </div>
   </div>
@@ -472,7 +474,7 @@
   <p>I work differently. I go deep, I stay with you, and I don't take clients I don't believe I can genuinely help.</p>
   <div class="gold-line-short" style="margin-top:48px;"></div>
   <blockquote>"This isn't for everyone. But if you're ready to actually do the work —<br>I'll show you exactly how."</blockquote>
-  <a href="#footer-cta" class="btn-outline">See if we're a fit</a>
+  <a href="javascript:void(0)" onclick="bookCall()" class="btn-outline">See if we're a fit</a>
 </section>
 
 <!-- WHO IT'S FOR -->
@@ -508,7 +510,7 @@
     </div>
   </div>
   <div class="center-cta">
-    <a href="#footer-cta" class="btn-primary">Book a free call</a>
+    <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary">Book a free call</a>
   </div>
 </section>
 
@@ -528,7 +530,7 @@
       <div class="service-rule"></div>
       <h3>1:1 Coaching</h3>
       <p>A protocol built entirely around you — your gut, your sleep, your cortisol, your history. We go deep and stay there until it shifts. Limited spots open each quarter.</p>
-      <a href="#footer-cta" class="service-link">Apply to work together →</a>
+      <a href="javascript:void(0)" onclick="bookCall()" class="service-link">Apply to work together →</a>
     </div>
     <div class="service-card">
       <div class="service-top">
@@ -569,7 +571,7 @@
       <p>I'm an architect, interior designer and wellness coach. I've spent years working at the intersection of how spaces affect health — and how deeply your internal environment shapes everything else.</p>
       <p>I got into this work because I went through it myself. The exhaustion, the gut issues, the feeling of doing everything right and still not recovering. I found what works — and I build that into every protocol.</p>
       <p>I work with people who are serious about change. Not looking for a quick fix. Ready to understand their body and commit to the process.</p>
-      <a href="#footer-cta" class="btn-primary" style="margin-top:16px;display:inline-block;">Book a free call</a>
+      <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary" style="margin-top:16px;display:inline-block;">Book a free call</a>
     </div>
   </div>
 </section>
@@ -632,7 +634,7 @@
 
     <div class="center-cta" style="margin-top:56px;">
       <p style="font-size:13px;color:rgba(44,36,32,0.45);margin-bottom:20px;">Still have questions?</p>
-      <a href="#footer-cta" class="btn-primary">Book a free call</a>
+      <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary">Book a free call</a>
     </div>
   </div>
 </section>
@@ -655,7 +657,7 @@
   <span class="section-label">Ready to start?</span>
   <h2>Let's see if we're a fit.</h2>
   <p>A free 30-minute call to understand where you are, where you want to be, and whether I can help.</p>
-  <a href="mailto:hello@healwithizabela.com" class="btn-primary">Book a free call</a>
+  <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary">Book a free call</a>
 </div>
 
 <!-- FOOTER BAR -->
@@ -699,6 +701,11 @@
       answer.classList.add('open')
       icon.textContent = '−'
     }
+  }
+
+  // Calendly popup
+  function bookCall() {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/izabela-ostatek/15min' });
   }
 
   // Lead form
