@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apply to Work with Izabela | Heal with Izabela</title>
+  <title>Apply to Work with Izabela | Longevity by Izabela</title>
   <meta name="description" content="Apply for 1:1 wellness coaching with Izabela. A personalised 10-week protocol for gut health, sleep, inflammation and cortisol. Limited spots available." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -226,7 +226,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo">Heal with Izabela</a>
+  <a href="/" class="nav-logo">Longevity by Izabela</a>
   <a href="index.html" class="nav-back">← Back</a>
 </nav>
 
@@ -270,10 +270,20 @@
       <p>No right answers. I'm looking for honesty, not perfection.</p>
     </div>
 
-    <form id="applyForm" action="https://formspree.io/f/xaqvkzzr" method="POST">
+    <!-- Tally form embed -->
+    <div style="background:var(--cream); border:1px solid var(--taupe); min-height:600px;">
+      <iframe
+        data-tally-src="https://tally.so/embed/1ADLA1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy" width="100%" height="800" frameborder="0"
+        marginheight="0" marginwidth="0" title="Apply to work with Izabela"
+      ></iframe>
+    </div>
+
+    <!-- REMOVE EVERYTHING BELOW THIS LINE (old HTML form, kept for reference) -->
+    <form id="applyForm" style="display:none">
 
       <!-- Hidden fields for Formspree -->
-      <input type="hidden" name="_subject" value="New coaching application — Heal with Izabela" />
+      <input type="hidden" name="_subject" value="New coaching application — Longevity by Izabela" />
       <input type="text" name="_gotcha" style="display:none" />
 
       <!-- ABOUT YOU -->
@@ -431,20 +441,28 @@
       <span class="pill">No obligation</span>
       <span class="pill">Response in 48h</span>
     </div>
-    <p style="font-size:12px;color:rgba(44,36,32,0.32);">Questions before applying? <a href="mailto:hello@healwithizabela.com" style="color:var(--gold);text-decoration:none;">hello@healwithizabela.com</a></p>
+    <p style="font-size:12px;color:rgba(44,36,32,0.32);">Questions before applying? <a href="mailto:hello@longevity.izabelaostatek.com" style="color:var(--gold);text-decoration:none;">hello@longevity.izabelaostatek.com</a></p>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer-bar">
-  <span class="footer-logo">Heal with Izabela</span>
-  <span class="footer-copy">© 2026 Heal with Izabela. All rights reserved.</span>
+  <span class="footer-logo">Longevity by Izabela</span>
+  <span class="footer-copy">© 2026 Longevity by Izabela. All rights reserved.</span>
   <div class="footer-links">
     <a href="#">Instagram</a>
     <a href="#">Privacy</a>
-    <a href="mailto:hello@healwithizabela.com">Contact</a>
+    <a href="mailto:hello@longevity.izabelaostatek.com">Contact</a>
   </div>
 </footer>
+
+<!-- Tally embed script -->
+<script>
+  var d=document,w="https://tally.so/widgets/embed.js",
+  v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc})};
+  if("undefined"!=typeof Tally)v();
+  else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);}
+</script>
 
 <script>
   const form = document.getElementById('applyForm')
@@ -472,12 +490,12 @@
       } else {
         submitBtn.disabled = false
         submitBtn.textContent = 'Submit application'
-        alert('Something went wrong. Please email hello@healwithizabela.com directly.')
+        alert('Something went wrong. Please email hello@longevity.izabelaostatek.com directly.')
       }
     } catch (err) {
       submitBtn.disabled = false
       submitBtn.textContent = 'Submit application'
-      alert('Something went wrong. Please email hello@healwithizabela.com directly.')
+      alert('Something went wrong. Please email hello@longevity.izabelaostatek.com directly.')
     }
   })
 </script>

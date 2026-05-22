@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Heal with Izabela</title>
+  <title>Dashboard — Longevity by Izabela</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -185,7 +185,7 @@
 <!-- LOGIN SCREEN -->
 <div id="login-screen" style="display:none;position:fixed;inset:0;background:var(--brown);z-index:999;align-items:center;justify-content:center;flex-direction:column;">
   <div style="text-align:center;margin-bottom:48px;">
-    <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Heal with Izabela</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Longevity by Izabela</p>
     <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2rem;color:var(--cream);">Dashboard</h1>
   </div>
   <div style="width:100%;max-width:360px;padding:0 24px;">
@@ -208,7 +208,7 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <span>Heal with Izabela</span>
+      <span>Longevity by Izabela</span>
       <small>Dashboard</small>
     </div>
     <nav class="sidebar-nav">
@@ -219,7 +219,7 @@
     </nav>
     <div class="sidebar-links">
       <a class="sidebar-link" href="https://calendly.com/izabela-ostatek/15min" target="_blank">↗ Calendly</a>
-      <a class="sidebar-link" href="https://izabelaostatek.github.io/heal-with-izabela" target="_blank">↗ Website</a>
+      <a class="sidebar-link" href="https://izabelaostatek.github.io/longevity.izabelaostatek.com" target="_blank">↗ Website</a>
       <a class="sidebar-link" href="https://app.systeme.io" target="_blank">↗ Systeme.io</a>
       <a class="sidebar-link" href="task-tracker.html" target="_blank">↗ Full Tasks</a>
     </div>
@@ -564,7 +564,7 @@ function populateEmailSelects() {
 function getEmailContent(type, contact) {
   if (!contact) return ''
   if (type === 'before') {
-    return `Subject: Our call is coming up — Heal with Izabela
+    return `Subject: Our call is coming up — Longevity by Izabela
 
 Hi ${contact.fname},
 
@@ -582,7 +582,7 @@ If anything changes, reschedule here: https://calendly.com/izabela-ostatek/15min
 
 See you soon,
 Izabela
-Heal with Izabela`
+Longevity by Izabela`
   } else {
     return `Subject: After our call — next steps
 
@@ -606,7 +606,7 @@ Reply here if you have any questions.
 
 Talk soon,
 Izabela
-Heal with Izabela`
+Longevity by Izabela`
   }
 }
 
@@ -616,7 +616,7 @@ function openEmail(type) {
   const contact = state.contacts.find(c => c.id === contactId)
   if (!contact) { alert('Select a contact first.'); return }
   const body = getEmailContent(type, contact)
-  const subject = type === 'before' ? `Our call is coming up — Heal with Izabela` : `After our call — next steps`
+  const subject = type === 'before' ? `Our call is coming up — Longevity by Izabela` : `After our call — next steps`
   document.getElementById('emailPreview').textContent = body
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   window.open(mailto)
@@ -626,7 +626,7 @@ function quickSendEmail(id, type) {
   const contact = state.contacts.find(c => c.id === id)
   if (!contact) return
   const body = getEmailContent(type, contact)
-  const subject = type === 'before' ? `Our call is coming up — Heal with Izabela` : `After our call — next steps`
+  const subject = type === 'before' ? `Our call is coming up — Longevity by Izabela` : `After our call — next steps`
   window.open(`mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
 }
 
