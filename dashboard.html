@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Heal with Izabela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF8F5; --cream-mid: #F0EBE3; --gold: #C9A96E;
+      --gold-dark: #B8956A; --brown: #2C2420; --sage: #8B9E7A;
+      --taupe: #E8E0D5; --red: #c0392b; --green: #8B9E7A;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream-mid); color: var(--brown); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 220px; flex-shrink: 0; background: var(--brown);
+      display: flex; flex-direction: column; padding: 32px 0;
+      position: fixed; top: 0; left: 0; height: 100vh; z-index: 100;
+    }
+    .sidebar-logo { padding: 0 24px 32px; border-bottom: 1px solid rgba(250,248,245,0.08); }
+    .sidebar-logo span { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--cream); letter-spacing: 0.04em; }
+    .sidebar-logo small { display: block; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 4px; }
+    .sidebar-nav { flex: 1; padding: 24px 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 24px;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(250,248,245,0.45); cursor: pointer; transition: all 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .nav-item:hover { color: var(--cream); background: rgba(250,248,245,0.04); }
+    .nav-item.active { color: var(--gold); border-left-color: var(--gold); background: rgba(201,169,110,0.06); }
+    .nav-icon { font-size: 13px; width: 16px; text-align: center; }
+    .sidebar-links { padding: 24px; border-top: 1px solid rgba(250,248,245,0.08); display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-link {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(250,248,245,0.3); text-decoration: none; transition: color 0.2s; padding: 4px 0;
+    }
+    .sidebar-link:hover { color: var(--gold); }
+
+    /* ── MAIN ── */
+    .main { margin-left: 220px; flex: 1; padding: 40px; }
+
+    /* ── TOP BAR ── */
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 16px; }
+    .topbar-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; color: var(--brown); }
+    .topbar-date { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(44,36,32,0.35); }
+
+    /* ── STATS ── */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+    .stat-card { background: var(--cream); border: 1px solid var(--taupe); padding: 24px 28px; }
+    .stat-label { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; display: block; }
+    .stat-val { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--brown); line-height: 1; }
+    .stat-sub { font-size: 11px; color: rgba(44,36,32,0.35); margin-top: 6px; }
+
+    /* ── SECTIONS ── */
+    .section { display: none; }
+    .section.active { display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.5rem; color: var(--brown); margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+
+    /* ── CONTACTS ── */
+    .contact-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .search-input {
+      flex: 1; min-width: 200px; background: var(--cream); border: 1px solid var(--taupe);
+      padding: 10px 16px; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--brown);
+      outline: none; transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--gold); }
+    .filter-btn {
+      padding: 10px 18px; font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--taupe);
+      background: var(--cream); color: rgba(44,36,32,0.5); cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.05); }
+    .btn-gold {
+      padding: 10px 22px; font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 0.2em; text-transform: uppercase; border: none;
+      background: var(--gold); color: #fff; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-gold:hover { background: var(--gold-dark); }
+    .contact-table { background: var(--cream); border: 1px solid var(--taupe); width: 100%; border-collapse: collapse; }
+    .contact-table th {
+      padding: 14px 20px; text-align: left; font-size: 9px; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--sage); border-bottom: 1px solid var(--taupe);
+      font-weight: 400; background: var(--cream-mid);
+    }
+    .contact-table td { padding: 16px 20px; border-bottom: 1px solid rgba(232,224,213,0.5); vertical-align: middle; }
+    .contact-table tr:last-child td { border-bottom: none; }
+    .contact-table tr:hover td { background: var(--cream-mid); }
+    .contact-name { font-size: 13px; font-weight: 500; color: var(--brown); }
+    .contact-email { font-size: 12px; color: rgba(44,36,32,0.45); margin-top: 2px; }
+    .status-badge {
+      display: inline-block; padding: 3px 10px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .status-lead { background: rgba(201,169,110,0.12); color: var(--gold-dark); }
+    .status-active { background: rgba(139,158,122,0.15); color: #5C7055; }
+    .status-completed { background: rgba(44,36,32,0.06); color: rgba(44,36,32,0.4); }
+    .status-waitlist { background: rgba(139,158,122,0.08); color: var(--sage); }
+    .action-btns { display: flex; gap: 6px; }
+    .action-btn {
+      padding: 6px 12px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid var(--taupe); background: none; cursor: pointer; color: rgba(44,36,32,0.45);
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .action-btn.danger:hover { border-color: var(--red); color: var(--red); }
+    .empty-state { padding: 60px 20px; text-align: center; }
+    .empty-state p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: rgba(44,36,32,0.3); }
+
+    /* ── ADD CONTACT MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(44,36,32,0.5);
+      z-index: 200; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--cream); width: 100%; max-width: 500px; padding: 40px; position: relative; }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 28px; color: var(--brown); }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; font-size: 18px; color: rgba(44,36,32,0.4); }
+    .form-row { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: var(--cream-mid); border: 1px solid var(--taupe); padding: 12px 16px;
+      font-family: 'Inter', sans-serif; font-size: 13px; color: var(--brown); outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-select { cursor: pointer; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ── EMAILS ── */
+    .email-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+    .email-card { background: var(--cream); border: 1px solid var(--taupe); padding: 32px; }
+    .email-card-tag { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); margin-bottom: 16px; display: block; }
+    .email-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; margin-bottom: 12px; color: var(--brown); }
+    .email-card p { font-size: 12px; color: rgba(44,36,32,0.55); line-height: 1.7; margin-bottom: 20px; }
+    .email-compose { background: var(--cream); border: 1px solid var(--taupe); padding: 32px; margin-bottom: 20px; }
+    .email-compose h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; margin-bottom: 20px; }
+    .compose-preview {
+      background: var(--cream-mid); border: 1px solid var(--taupe); padding: 20px;
+      font-size: 13px; color: rgba(44,36,32,0.7); line-height: 1.8; margin-bottom: 16px;
+      white-space: pre-wrap; min-height: 120px; max-height: 280px; overflow-y: auto;
+    }
+
+    /* ── TASKS ── */
+    .tasks-client-select { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+    .tasks-client-select label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); }
+    .tasks-progress-bar-bg { height: 2px; background: var(--taupe); margin-bottom: 28px; }
+    .tasks-progress-bar-fill { height: 2px; background: var(--gold); transition: width 0.4s; }
+    .tasks-progress-label { font-size: 11px; color: rgba(44,36,32,0.4); margin-bottom: 20px; }
+    .task-section { background: var(--cream); border: 1px solid var(--taupe); margin-bottom: 12px; }
+    .task-section-head { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .task-section-head:hover { background: var(--cream-mid); }
+    .task-section-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--brown); }
+    .task-section-meta { font-size: 10px; color: rgba(44,36,32,0.35); letter-spacing: 0.15em; }
+    .task-row { padding: 13px 20px; display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(232,224,213,0.5); }
+    .task-row:hover { background: rgba(250,248,245,0.5); }
+    .task-check { width: 16px; height: 16px; border: 1px solid var(--taupe); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+    .task-check.done { background: var(--sage); border-color: var(--sage); color: #fff; font-size: 9px; }
+    .task-row-text { font-size: 12px; color: var(--brown); flex: 1; cursor: pointer; }
+    .task-row-text.done { color: rgba(44,36,32,0.3); text-decoration: line-through; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sidebar { width: 60px; }
+      .sidebar-logo small, .nav-item span, .sidebar-links { display: none; }
+      .nav-item { justify-content: center; padding: 14px; }
+      .main { margin-left: 60px; padding: 24px 20px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .email-cards { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .contact-table th:nth-child(3), .contact-table td:nth-child(3),
+      .contact-table th:nth-child(4), .contact-table td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Heal with Izabela</span>
+      <small>Dashboard</small>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showSection('overview')"><span class="nav-icon">◈</span><span>Overview</span></div>
+      <div class="nav-item" onclick="showSection('contacts')"><span class="nav-icon">◎</span><span>Contacts</span></div>
+      <div class="nav-item" onclick="showSection('emails')"><span class="nav-icon">✉</span><span>Emails</span></div>
+      <div class="nav-item" onclick="showSection('tasks')"><span class="nav-icon">◻</span><span>Tasks</span></div>
+    </nav>
+    <div class="sidebar-links">
+      <a class="sidebar-link" href="https://calendly.com/izabela-ostatek/15min" target="_blank">↗ Calendly</a>
+      <a class="sidebar-link" href="https://izabelaostatek.github.io/heal-with-izabela" target="_blank">↗ Website</a>
+      <a class="sidebar-link" href="https://app.systeme.io" target="_blank">↗ Systeme.io</a>
+      <a class="sidebar-link" href="task-tracker.html" target="_blank">↗ Full Tasks</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <h1 class="topbar-title">Good morning, Izabela.</h1>
+      <span class="topbar-date" id="todayDate"></span>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <span class="stat-label">Total contacts</span>
+        <div class="stat-val" id="statTotal">0</div>
+        <div class="stat-sub">in your list</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Active clients</span>
+        <div class="stat-val" id="statActive">0</div>
+        <div class="stat-sub">currently working with</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Leads</span>
+        <div class="stat-val" id="statLeads">0</div>
+        <div class="stat-sub">to follow up</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Completed</span>
+        <div class="stat-val" id="statDone">0</div>
+        <div class="stat-sub">past clients</div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="sec-overview">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- Recent contacts -->
+        <div style="background:var(--cream);border:1px solid var(--taupe);padding:28px;">
+          <div class="section-title" style="font-size:1.1rem;margin-bottom:20px;">Recent contacts</div>
+          <div id="recentContacts"><p style="font-size:12px;color:rgba(44,36,32,0.35);font-style:italic;">No contacts yet.</p></div>
+          <button class="btn-gold" style="margin-top:20px;width:100%;" onclick="showSection('contacts');openAddModal()">+ Add contact</button>
+        </div>
+
+        <!-- Quick email -->
+        <div style="background:var(--cream);border:1px solid var(--taupe);padding:28px;">
+          <div class="section-title" style="font-size:1.1rem;margin-bottom:20px;">Quick email</div>
+          <div style="margin-bottom:12px;">
+            <div class="form-label">Select contact</div>
+            <select class="form-select" id="quickEmailContact" onchange="updateQuickEmail()">
+              <option value="">— pick a contact —</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button class="action-btn" style="flex:1;" onclick="sendQuickEmail('before')">📅 Pre-call</button>
+            <button class="action-btn" style="flex:1;" onclick="sendQuickEmail('after')">✓ Post-call</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div class="section" id="sec-contacts">
+      <div class="section-title">
+        Contacts
+        <button class="btn-gold" onclick="openAddModal()">+ Add contact</button>
+      </div>
+      <div class="contact-toolbar">
+        <input class="search-input" placeholder="Search by name or email…" oninput="renderContacts(this.value)" />
+        <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+        <button class="filter-btn" onclick="setFilter('lead',this)">Leads</button>
+        <button class="filter-btn" onclick="setFilter('active',this)">Active</button>
+        <button class="filter-btn" onclick="setFilter('completed',this)">Completed</button>
+      </div>
+      <table class="contact-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Added</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="contactsBody"></tbody>
+      </table>
+    </div>
+
+    <!-- EMAILS -->
+    <div class="section" id="sec-emails">
+      <div class="section-title">Email Templates</div>
+      <div class="email-cards">
+        <div class="email-card">
+          <span class="email-card-tag">Send 24h before call</span>
+          <h3>Pre-call email</h3>
+          <p>Confirms the call, sets expectations, prep questions. Opens in Gmail ready to send.</p>
+          <div class="form-row">
+            <label class="form-label">Select contact</label>
+            <select class="form-select" id="preCallContact"></select>
+          </div>
+          <button class="btn-gold" style="width:100%;margin-top:8px;" onclick="openEmail('before')">Open in Gmail →</button>
+        </div>
+        <div class="email-card">
+          <span class="email-card-tag">Send within 1h after call</span>
+          <h3>Post-call email</h3>
+          <p>Thank you, your read, next steps, and a clear CTA to continue. Personalise before sending.</p>
+          <div class="form-row">
+            <label class="form-label">Select contact</label>
+            <select class="form-select" id="postCallContact"></select>
+          </div>
+          <button class="btn-gold" style="width:100%;margin-top:8px;" onclick="openEmail('after')">Open in Gmail →</button>
+        </div>
+      </div>
+
+      <div class="email-compose">
+        <h3>Email preview</h3>
+        <div class="compose-preview" id="emailPreview">Select a contact and template above to see a preview.</div>
+      </div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="section" id="sec-tasks">
+      <div class="section-title">Workflow Tasks</div>
+      <div class="tasks-client-select">
+        <label>Client</label>
+        <select class="form-select" style="width:240px;" id="taskClientSelect" onchange="renderTasks()">
+          <option value="general">General workflow</option>
+        </select>
+      </div>
+      <div class="tasks-progress-label" id="taskProgressLabel">0 of 0 tasks done</div>
+      <div class="tasks-progress-bar-bg"><div class="tasks-progress-bar-fill" id="taskProgressFill" style="width:0%"></div></div>
+      <div id="taskSections"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ADD CONTACT MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAddModal()">✕</button>
+    <div class="modal-title">Add contact</div>
+    <div class="form-row-2">
+      <div class="form-row">
+        <label class="form-label">First name *</label>
+        <input class="form-input" id="inp-fname" placeholder="Sarah" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">Last name</label>
+        <input class="form-input" id="inp-lname" placeholder="Johnson" />
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Email *</label>
+      <input class="form-input" id="inp-email" placeholder="sarah@email.com" type="email" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Status</label>
+      <select class="form-select" id="inp-status">
+        <option value="lead">Lead</option>
+        <option value="active">Active client</option>
+        <option value="waitlist">Waitlist</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes</label>
+      <textarea class="form-textarea" id="inp-notes" placeholder="Gut issues, poor sleep, referred by…"></textarea>
+    </div>
+    <button class="btn-gold" style="width:100%;padding:14px;" onclick="saveContact()">Save contact</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+function load() { return JSON.parse(localStorage.getItem('hwi-dash') || '{"contacts":[],"tasks":{}}') }
+function save(data) { localStorage.setItem('hwi-dash', JSON.stringify(data)) }
+
+let state = load()
+let currentFilter = 'all'
+
+const taskTemplate = [
+  { id: 'pre-booking', name: 'Before Booking', tasks: [
+    { id: 'pb1', text: 'Send Calendly link', done: false },
+    { id: 'pb2', text: 'Confirm call is booked', done: false }
+  ]},
+  { id: 'pre-call', name: 'Before the Call', tasks: [
+    { id: 'pc1', text: 'Send pre-call email', done: false },
+    { id: 'pc2', text: 'Review intake form', done: false },
+    { id: 'pc3', text: 'Prepare personalised notes', done: false }
+  ]},
+  { id: 'post-call', name: 'After the Call', tasks: [
+    { id: 'poc1', text: 'Send post-call summary email', done: false },
+    { id: 'poc2', text: 'Send program proposal', done: false },
+    { id: 'poc3', text: 'Follow up if no response in 48h', done: false }
+  ]},
+  { id: 'onboarding', name: 'Onboarding', tasks: [
+    { id: 'on1', text: 'Send welcome email', done: false },
+    { id: 'on2', text: 'Create personalised protocol', done: false },
+    { id: 'on3', text: 'Schedule first session', done: false }
+  ]}
+]
+
+// ── NAV ──
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'))
+  document.getElementById('sec-' + name).classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick').includes(name)) n.classList.add('active')
+  })
+  if (name === 'contacts') renderContacts()
+  if (name === 'emails') populateEmailSelects()
+  if (name === 'tasks') { populateTaskClients(); renderTasks() }
+  if (name === 'overview') renderOverview()
+}
+
+// ── DATE ──
+const d = new Date()
+document.getElementById('todayDate').textContent = d.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+
+// ── STATS ──
+function updateStats() {
+  const c = state.contacts
+  document.getElementById('statTotal').textContent = c.length
+  document.getElementById('statActive').textContent = c.filter(x => x.status === 'active').length
+  document.getElementById('statLeads').textContent = c.filter(x => x.status === 'lead').length
+  document.getElementById('statDone').textContent = c.filter(x => x.status === 'completed').length
+}
+
+// ── OVERVIEW ──
+function renderOverview() {
+  updateStats()
+  const recent = [...state.contacts].slice(-4).reverse()
+  const el = document.getElementById('recentContacts')
+  if (!recent.length) { el.innerHTML = '<p style="font-size:12px;color:rgba(44,36,32,0.35);font-style:italic;">No contacts yet.</p>'; return }
+  el.innerHTML = recent.map(c => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--taupe);">
+      <div>
+        <div style="font-size:13px;font-weight:500;">${c.fname} ${c.lname || ''}</div>
+        <div style="font-size:11px;color:rgba(44,36,32,0.4);">${c.email}</div>
+      </div>
+      <span class="status-badge status-${c.status}">${c.status}</span>
+    </div>
+  `).join('')
+
+  // Quick email select
+  const sel = document.getElementById('quickEmailContact')
+  sel.innerHTML = '<option value="">— pick a contact —</option>' + state.contacts.map(c => `<option value="${c.id}">${c.fname} ${c.lname||''}</option>`).join('')
+}
+
+// ── CONTACTS ──
+function setFilter(f, btn) {
+  currentFilter = f
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+  btn.classList.add('active')
+  renderContacts()
+}
+
+function renderContacts(search = '') {
+  updateStats()
+  let contacts = state.contacts
+  if (currentFilter !== 'all') contacts = contacts.filter(c => c.status === currentFilter)
+  if (search) contacts = contacts.filter(c =>
+    `${c.fname} ${c.lname} ${c.email}`.toLowerCase().includes(search.toLowerCase())
+  )
+  const tbody = document.getElementById('contactsBody')
+  if (!contacts.length) {
+    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><p>No contacts yet. Add your first one.</p></div></td></tr>`
+    return
+  }
+  tbody.innerHTML = contacts.map(c => `
+    <tr>
+      <td>
+        <div class="contact-name">${c.fname} ${c.lname || ''}</div>
+        <div class="contact-email">${c.email}</div>
+      </td>
+      <td><span class="status-badge status-${c.status}">${c.status}</span></td>
+      <td style="font-size:12px;color:rgba(44,36,32,0.5);max-width:180px;">${c.notes || '—'}</td>
+      <td style="font-size:11px;color:rgba(44,36,32,0.35);">${c.added || '—'}</td>
+      <td>
+        <div class="action-btns">
+          <button class="action-btn" onclick="quickSendEmail('${c.id}','before')">Pre-call</button>
+          <button class="action-btn" onclick="quickSendEmail('${c.id}','after')">Post-call</button>
+          <button class="action-btn danger" onclick="deleteContact('${c.id}')">✕</button>
+        </div>
+      </td>
+    </tr>
+  `).join('')
+}
+
+// ── ADD / DELETE CONTACT ──
+function openAddModal() { document.getElementById('addModal').classList.add('open') }
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open')
+  ;['fname','lname','email','notes'].forEach(f => document.getElementById('inp-'+f).value = '')
+  document.getElementById('inp-status').value = 'lead'
+}
+
+function saveContact() {
+  const fname = document.getElementById('inp-fname').value.trim()
+  const email = document.getElementById('inp-email').value.trim()
+  if (!fname || !email) { alert('Name and email are required.'); return }
+  const contact = {
+    id: 'c' + Date.now(),
+    fname, lname: document.getElementById('inp-lname').value.trim(),
+    email, status: document.getElementById('inp-status').value,
+    notes: document.getElementById('inp-notes').value.trim(),
+    added: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })
+  }
+  state.contacts.push(contact)
+  if (!state.tasks[contact.id]) state.tasks[contact.id] = JSON.parse(JSON.stringify(taskTemplate))
+  save(state)
+  closeAddModal()
+  renderContacts()
+  renderOverview()
+  populateEmailSelects()
+  populateTaskClients()
+}
+
+function deleteContact(id) {
+  if (!confirm('Remove this contact?')) return
+  state.contacts = state.contacts.filter(c => c.id !== id)
+  delete state.tasks[id]
+  save(state)
+  renderContacts()
+  updateStats()
+  renderOverview()
+}
+
+// ── EMAILS ──
+function populateEmailSelects() {
+  const opts = '<option value="">— select contact —</option>' + state.contacts.map(c => `<option value="${c.id}">${c.fname} ${c.lname||''} (${c.email})</option>`).join('')
+  document.getElementById('preCallContact').innerHTML = opts
+  document.getElementById('postCallContact').innerHTML = opts
+}
+
+function getEmailContent(type, contact) {
+  if (!contact) return ''
+  if (type === 'before') {
+    return `Subject: Our call is coming up — Heal with Izabela
+
+Hi ${contact.fname},
+
+Your free discovery call is confirmed. Looking forward to speaking with you.
+
+Before we talk, it helps to think about:
+• What's the symptom bothering you most right now?
+• How long have you been dealing with it?
+• What have you already tried?
+• What would your life look like if this was fixed?
+
+We'll be on a video call — you'll find the link in your calendar invite.
+
+If anything changes, reschedule here: https://calendly.com/izabela-ostatek/15min
+
+See you soon,
+Izabela
+Heal with Izabela`
+  } else {
+    return `Subject: After our call — next steps
+
+Hi ${contact.fname},
+
+It was really good to speak with you today.
+
+[Add what you heard from them here]
+
+Based on our conversation, here's what I'd suggest as a next step:
+• [Next step 1]
+• [Next step 2]
+• [Next step 3]
+
+I think [1:1 Coaching / Digital Program] would be the right fit for where you are right now. It covers exactly what we discussed and gives us the space to actually move things.
+
+If you're ready to go: [add your program link]
+If you'd like another call first: https://calendly.com/izabela-ostatek/15min
+
+Reply here if you have any questions.
+
+Talk soon,
+Izabela
+Heal with Izabela`
+  }
+}
+
+function openEmail(type) {
+  const selId = type === 'before' ? 'preCallContact' : 'postCallContact'
+  const contactId = document.getElementById(selId).value
+  const contact = state.contacts.find(c => c.id === contactId)
+  if (!contact) { alert('Select a contact first.'); return }
+  const body = getEmailContent(type, contact)
+  const subject = type === 'before' ? `Our call is coming up — Heal with Izabela` : `After our call — next steps`
+  document.getElementById('emailPreview').textContent = body
+  const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  window.open(mailto)
+}
+
+function quickSendEmail(id, type) {
+  const contact = state.contacts.find(c => c.id === id)
+  if (!contact) return
+  const body = getEmailContent(type, contact)
+  const subject = type === 'before' ? `Our call is coming up — Heal with Izabela` : `After our call — next steps`
+  window.open(`mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+}
+
+function sendQuickEmail(type) {
+  const id = document.getElementById('quickEmailContact').value
+  if (!id) { alert('Select a contact first.'); return }
+  quickSendEmail(id, type)
+}
+
+function updateQuickEmail() {}
+
+// ── TASKS ──
+function populateTaskClients() {
+  const sel = document.getElementById('taskClientSelect')
+  const current = sel.value
+  sel.innerHTML = '<option value="general">General workflow</option>' + state.contacts.map(c => `<option value="${c.id}">${c.fname} ${c.lname||''}</option>`).join('')
+  if (current) sel.value = current
+}
+
+function renderTasks() {
+  const clientId = document.getElementById('taskClientSelect').value
+  let sections = clientId === 'general' ? JSON.parse(JSON.stringify(taskTemplate)) : (state.tasks[clientId] || JSON.parse(JSON.stringify(taskTemplate)))
+  if (clientId !== 'general' && !state.tasks[clientId]) { state.tasks[clientId] = sections; save(state) }
+
+  let total = 0, done = 0
+  sections.forEach(s => { total += s.tasks.length; done += s.tasks.filter(t => t.done).length })
+  const pct = total ? Math.round((done/total)*100) : 0
+  document.getElementById('taskProgressLabel').textContent = `${done} of ${total} tasks completed`
+  document.getElementById('taskProgressFill').style.width = pct + '%'
+
+  document.getElementById('taskSections').innerHTML = sections.map((sec, si) => `
+    <div class="task-section">
+      <div class="task-section-head" onclick="toggleTaskSec(this)">
+        <span class="task-section-name">${sec.name}</span>
+        <span class="task-section-meta">${sec.tasks.filter(t=>t.done).length}/${sec.tasks.length}</span>
+      </div>
+      <div>
+        ${sec.tasks.map((t, ti) => `
+          <div class="task-row">
+            <div class="task-check ${t.done?'done':''}" onclick="toggleClientTask('${clientId}',${si},${ti})">
+              ${t.done ? '✓' : ''}
+            </div>
+            <span class="task-row-text ${t.done?'done':''}" onclick="toggleClientTask('${clientId}',${si},${ti})">${t.text}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('')
+}
+
+function toggleTaskSec(head) {
+  const body = head.nextElementSibling
+  body.style.display = body.style.display === 'none' ? '' : 'none'
+}
+
+function toggleClientTask(clientId, si, ti) {
+  if (clientId === 'general') return
+  if (!state.tasks[clientId]) state.tasks[clientId] = JSON.parse(JSON.stringify(taskTemplate))
+  state.tasks[clientId][si].tasks[ti].done = !state.tasks[clientId][si].tasks[ti].done
+  save(state)
+  renderTasks()
+}
+
+// ── INIT ──
+updateStats()
+renderOverview()
+</script>
+</body>
+</html>
