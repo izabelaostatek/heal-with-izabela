@@ -5,17 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard — Heal with Izabela</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script>
-    (function() {
-      const h = 'U291bGFuZFNhbmN0dWFyeTIwMjYh';
-      if (sessionStorage.getItem('hwi-auth') !== h) {
-        document.addEventListener('DOMContentLoaded', function() {
-          document.getElementById('login-screen').style.display = 'flex';
-          document.getElementById('app').style.display = 'none';
-        });
-      }
-    })();
-  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -213,7 +202,7 @@
   </div>
 </div>
 
-<div id="app">
+<div id="app" style="display:none;">
 <div class="layout">
 
   <!-- SIDEBAR -->
@@ -702,6 +691,14 @@ function toggleClientTask(clientId, si, ti) {
 }
 
 // ── INIT ──
+const _h = 'U291bGFuZFNhbmN0dWFyeTIwMjYh'
+if (sessionStorage.getItem('hwi-auth') === _h) {
+  document.getElementById('login-screen').style.display = 'none'
+  document.getElementById('app').style.display = 'block'
+} else {
+  document.getElementById('login-screen').style.display = 'flex'
+  document.getElementById('app').style.display = 'none'
+}
 updateStats()
 renderOverview()
 
