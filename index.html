@@ -868,7 +868,8 @@
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
       const json = await res.json()
       if (json.success) {
-        form.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.3rem;color:var(--cream);line-height:1.6;">It\'s on its way ✦<br><a href="/gut-reset-guide.html" style="color:var(--gold);font-size:0.85rem;font-family:Inter,sans-serif;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Open the guide →</a></p>'
+        form.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.3rem;color:var(--cream);line-height:1.6;">Taking you to the guide…</p>'
+        setTimeout(() => { window.location.href = '/gut-reset-guide.html' }, 1200)
       } else {
         btn.textContent = 'Try again'
         btn.disabled = false
