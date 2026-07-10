@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gut Reset Starter Guide — Longevity by Izabela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f1eb;
+    --cream-mid: #ede8e0;
+    --gold: #b8952a;
+    --brown: #2c2420;
+    --sage: #7a8c6e;
+    --taupe: rgba(44,36,32,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; }
+  body {
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cover {
+    background: var(--brown);
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 40px;
+  }
+  .cover-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .cover h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .cover h1 em { font-style: italic; color: var(--gold); }
+  .cover-sub {
+    font-size: 13px;
+    color: rgba(245,241,235,0.55);
+    letter-spacing: 0.05em;
+    margin-bottom: 60px;
+  }
+  .cover-line {
+    width: 1px;
+    height: 60px;
+    background: var(--gold);
+    margin: 0 auto 32px;
+  }
+  .cover-byline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(245,241,235,0.5);
+  }
+
+  .guide {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  .intro {
+    border-left: 2px solid var(--gold);
+    padding-left: 28px;
+    margin-bottom: 72px;
+  }
+  .intro p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: rgba(44,36,32,0.7);
+  }
+
+  .section { margin-bottom: 72px; }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(44,36,32,0.07);
+    line-height: 1;
+    margin-bottom: -8px;
+  }
+  .section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--brown);
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .section h2 em { font-style: italic; }
+  .section p {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(44,36,32,0.65);
+    margin-bottom: 16px;
+  }
+  .section p strong {
+    color: var(--brown);
+    font-weight: 400;
+  }
+
+  .signs {
+    list-style: none;
+    margin: 20px 0;
+  }
+  .signs li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--taupe);
+    font-size: 13px;
+    color: rgba(44,36,32,0.7);
+    line-height: 1.6;
+  }
+  .signs li:last-child { border-bottom: none; }
+  .sign-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--gold);
+    min-width: 24px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .remove-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .remove-item {
+    background: white;
+    border: 1px solid var(--taupe);
+    padding: 24px 28px;
+  }
+  .remove-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .remove-item p {
+    margin-bottom: 0;
+  }
+
+  .protocol {
+    counter-reset: steps;
+    list-style: none;
+    margin-top: 24px;
+  }
+  .protocol li {
+    counter-increment: steps;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .protocol li::before {
+    content: counter(steps);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    min-width: 28px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .protocol li .step-text {
+    font-size: 13px;
+    color: rgba(44,36,32,0.7);
+    line-height: 1.7;
+  }
+  .protocol li .step-text strong {
+    display: block;
+    color: var(--brown);
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .callout {
+    background: var(--cream-mid);
+    border-left: 3px solid var(--gold);
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+  .callout p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(44,36,32,0.75);
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 56px 0;
+  }
+
+  .cta-block {
+    background: var(--brown);
+    padding: 60px 48px;
+    text-align: center;
+    margin-top: 80px;
+  }
+  .cta-block .cta-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .cta-block h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .cta-block h2 em { font-style: italic; }
+  .cta-block p {
+    font-size: 12px;
+    color: rgba(245,241,235,0.5);
+    margin-bottom: 36px;
+    line-height: 1.8;
+  }
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    transition: opacity 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.85; }
+
+  .footer-guide {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid var(--taupe);
+    margin-top: 0;
+  }
+  .footer-guide p {
+    font-size: 11px;
+    color: rgba(44,36,32,0.35);
+    letter-spacing: 0.05em;
+  }
+  .footer-guide a { color: rgba(44,36,32,0.45); text-decoration: none; }
+
+  @media print {
+    .cover { min-height: auto; padding: 60px 40px; page-break-after: always; }
+    .guide { padding: 60px 40px 80px; }
+    .cta-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 600px) {
+    .guide { padding: 60px 24px 80px; }
+    .cta-block { padding: 48px 28px; }
+    .callout { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <p class="cover-label">Longevity by Izabela</p>
+  <h1>The Gut Reset<br><em>Starter Guide</em></h1>
+  <p class="cover-sub">Where to start when everything feels off</p>
+  <div class="cover-line"></div>
+  <p class="cover-byline">by Izabela Ostatek</p>
+</div>
+
+<!-- GUIDE CONTENT -->
+<div class="guide">
+
+  <div class="intro">
+    <p>Your gut doesn't break overnight. By the time symptoms show up, the damage is layered. This guide cuts through the noise — what to remove first, what to add, and in what order.</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-num">01</div>
+    <h2>What your gut is <em>actually</em> telling you</h2>
+    <p>Most people treat the symptom. Bloating → antacids. Fatigue → caffeine. Skin flares → creams. The root cause stays untouched.</p>
+    <p>Gut dysfunction doesn't always mean gut pain. It shows up as brain fog, disrupted sleep, low mood, weight that won't shift, skin that reacts to everything. The gut is involved in more than digestion.</p>
+    <p>The question isn't "what's the symptom?" It's "what's driving it?"</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-num">02</div>
+    <h2>5 signs your gut needs a reset</h2>
+    <p>If three or more of these sound familiar, your gut is involved.</p>
+    <ul class="signs">
+      <li><span class="sign-num">1</span><span>You feel worse after eating — even food you consider "clean"</span></li>
+      <li><span class="sign-num">2</span><span>Energy crashes after lunch regardless of what you ate</span></li>
+      <li><span class="sign-num">3</span><span>Bloating that doesn't fully resolve by evening</span></li>
+      <li><span class="sign-num">4</span><span>Brain fog that comes and goes with no clear external trigger</span></li>
+      <li><span class="sign-num">5</span><span>Skin reacting — acne, eczema, redness — with nothing obvious to blame</span></li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-num">03</div>
+    <h2>Start here: <em>what to remove first</em></h2>
+    <p>Before adding anything, remove these for 21 days. Most people feel a difference within 10.</p>
+    <div class="remove-grid">
+      <div class="remove-item">
+        <h3>Gluten</h3>
+        <p>Not because it's a trend. It creates microscopic inflammation in the gut lining — especially in a gut that's already compromised. Two weeks off it will tell you whether it's relevant for you.</p>
+      </div>
+      <div class="remove-item">
+        <h3>Conventional dairy</h3>
+        <p>The proteins — casein and whey — are among the most common gut irritants. Hard aged cheeses and ghee are usually tolerated. Milk, soft cheese, and yoghurt are where most people react.</p>
+      </div>
+      <div class="remove-item">
+        <h3>Processed seed oils</h3>
+        <p>Sunflower, rapeseed, vegetable oil. These drive inflammation quietly. Switch to olive oil, coconut oil, or butter. The impact on bloating and energy is often immediate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-num">04</div>
+    <h2>The morning protocol</h2>
+    <p>Do this before coffee, before food, every morning for 7 days.</p>
+    <ol class="protocol">
+      <li>
+        <div class="step-text">
+          <strong>500ml warm water + lemon</strong>
+          Drink it slowly. Not cold, not hot. Room temperature to warm.
+        </div>
+      </li>
+      <li>
+        <div class="step-text">
+          <strong>Wait 20 minutes</strong>
+          This is the step most people skip. It matters. The lemon water activates digestive enzymes before food arrives.
+        </div>
+      </li>
+      <li>
+        <div class="step-text">
+          <strong>Protein and fat first — not carbohydrates</strong>
+          Eggs, smoked salmon, avocado, nuts. Not toast. Not oats. Stabilising blood sugar in the morning changes how you feel for the rest of the day.
+        </div>
+      </li>
+    </ol>
+    <div class="callout">
+      <p>Most people notice a shift in bloating within 5 days. If you don't, the issue is deeper — which is where lab testing and a tailored protocol come in.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5 -->
+  <div class="section">
+    <div class="section-num">05</div>
+    <h2>What most people get wrong</h2>
+    <p>They add supplements before removing the problem.</p>
+    <p>Probiotics in an inflamed gut have limited impact. Collagen in the morning doesn't counteract what you're eating at lunch. Supplements are the rebuild phase — not the starting point.</p>
+    <p><strong>The order is: remove → repair → rebuild.</strong> Jumping to step three without doing steps one and two is why nothing seems to work.</p>
+    <p>This is the sequence behind the 10-week protocol I run with every client. Phased. In the right order. Built around what your body specifically needs — not a generic plan.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <p class="cta-label">Ready to go deeper?</p>
+    <h2>The 10-Week Longevity<br><em>Programme</em></h2>
+    <p>Lab tests, weekly coaching sessions, a phased protocol built around your body. Not a plan you follow alone.</p>
+    <a href="https://longevity.izabelaostatek.com" class="btn-gold">Learn more</a>
+  </div>
+
+</div>
+
+<div class="footer-guide">
+  <p>© 2026 <a href="https://longevity.izabelaostatek.com">Longevity by Izabela</a> &nbsp;·&nbsp; Not medical advice. Always consult your doctor for diagnosed conditions.</p>
+</div>
+
+</body>
+</html>

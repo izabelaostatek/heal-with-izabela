@@ -791,8 +791,11 @@
   <span class="section-label" style="color:var(--gold);">Free resource</span>
   <h2 style="margin-top:20px;">The Gut Reset<br><em>Starter Guide</em></h2>
   <p>Understand what's actually driving your symptoms — and where to start. The first thing I share with every new client, free.</p>
-  <form class="lead-form" onsubmit="handleSubmit(event)">
-    <input type="email" placeholder="Your email address" required />
+  <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)">
+    <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_KEY">
+    <input type="hidden" name="subject" value="New Gut Reset Guide subscriber">
+    <input type="hidden" name="redirect" value="false">
+    <input type="email" name="email" placeholder="Your email address" required />
     <button type="submit">Send it to me</button>
   </form>
   <p class="lead-note">No spam. Unsubscribe anytime.</p>
@@ -854,10 +857,26 @@
   }
 
   // Lead form
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const form = e.target
-    form.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.4rem;color:var(--cream);">It\'s on its way. Check your inbox.</p>'
+    const btn = form.querySelector('button')
+    btn.textContent = 'Sending…'
+    btn.disabled = true
+    const data = new FormData(form)
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      const json = await res.json()
+      if (json.success) {
+        form.innerHTML = '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.3rem;color:var(--cream);line-height:1.6;">It\'s on its way ✦<br><a href="/gut-reset-guide.html" style="color:var(--gold);font-size:0.85rem;font-family:Inter,sans-serif;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">Open the guide →</a></p>'
+      } else {
+        btn.textContent = 'Try again'
+        btn.disabled = false
+      }
+    } catch {
+      btn.textContent = 'Try again'
+      btn.disabled = false
+    }
   }
 </script>
 
