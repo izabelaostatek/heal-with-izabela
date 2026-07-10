@@ -314,33 +314,70 @@
 
     <!-- EMAILS -->
     <div class="section" id="sec-emails">
-      <div class="section-title">Email Templates</div>
-      <div class="email-cards">
-        <div class="email-card">
-          <span class="email-card-tag">Send 24h before call</span>
-          <h3>Pre-call email</h3>
-          <p>Confirms the call, sets expectations, prep questions. Opens in Gmail ready to send.</p>
-          <div class="form-row">
-            <label class="form-label">Select contact</label>
-            <select class="form-select" id="preCallContact"></select>
+      <div class="section-title">Programme Emails</div>
+
+      <div class="email-compose" style="margin-bottom:20px;">
+        <h3 style="margin-bottom:20px;">Select &amp; launch</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;">
+          <div class="form-row" style="margin:0;">
+            <label class="form-label">Email</label>
+            <select class="form-select" id="emailTypeSelect" onchange="updateEmailPreview()">
+              <option value="welcome">Welcome (Day 1)</option>
+              <optgroup label="── Pre-Session">
+                <option value="pre-1">Week 1 — Pre-session</option>
+                <option value="pre-2">Week 2 — Pre-session</option>
+                <option value="pre-3">Week 3 — Pre-session</option>
+                <option value="pre-4">Week 4 — Pre-session</option>
+                <option value="pre-5">Week 5 — Pre-session</option>
+                <option value="pre-6">Week 6 — Pre-session</option>
+                <option value="pre-7">Week 7 — Pre-session</option>
+                <option value="pre-8">Week 8 — Pre-session</option>
+                <option value="pre-9">Week 9 — Pre-session</option>
+                <option value="pre-10">Week 10 — Pre-session</option>
+              </optgroup>
+              <optgroup label="── Post-Session">
+                <option value="post-1">Week 1 — Post-session</option>
+                <option value="post-2">Week 2 — Post-session</option>
+                <option value="post-3">Week 3 — Post-session</option>
+                <option value="post-4">Week 4 — Post-session</option>
+                <option value="post-5">Week 5 — Post-session</option>
+                <option value="post-6">Week 6 — Post-session</option>
+                <option value="post-7">Week 7 — Post-session</option>
+                <option value="post-8">Week 8 — Post-session</option>
+                <option value="post-9">Week 9 — Post-session</option>
+                <option value="post-10">Week 10 — Post-session</option>
+              </optgroup>
+            </select>
           </div>
-          <button class="btn-gold" style="width:100%;margin-top:8px;" onclick="openEmail('before')">Open in Gmail →</button>
+          <div class="form-row" style="margin:0;">
+            <label class="form-label">Client</label>
+            <select class="form-select" id="emailContact" onchange="updateEmailPreview()">
+              <option value="">— select client —</option>
+            </select>
+          </div>
+          <div class="form-row" style="margin:0;">
+            <label class="form-label">Call date &amp; time</label>
+            <input class="form-input" id="emailCallDate" type="text" placeholder="e.g. Monday 14 July at 3pm" oninput="updateEmailPreview()" />
+          </div>
         </div>
-        <div class="email-card">
-          <span class="email-card-tag">Send within 1h after call</span>
-          <h3>Post-call email</h3>
-          <p>Thank you, your read, next steps, and a clear CTA to continue. Personalise before sending.</p>
-          <div class="form-row">
-            <label class="form-label">Select contact</label>
-            <select class="form-select" id="postCallContact"></select>
-          </div>
-          <button class="btn-gold" style="width:100%;margin-top:8px;" onclick="openEmail('after')">Open in Gmail →</button>
+
+        <div style="background:var(--cream-mid);border:1px solid var(--taupe);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--sage);white-space:nowrap;">Subject</span>
+          <span id="emailSubjectPreview" style="font-size:12px;color:var(--brown);">—</span>
+        </div>
+
+        <div class="compose-preview" id="emailPreview">Select a client and email type to preview.</div>
+
+        <div style="display:flex;gap:12px;margin-top:16px;align-items:center;">
+          <button class="btn-gold" onclick="launchEmail()" style="flex:1;padding:14px;">Open in Gmail →</button>
+          <span style="font-size:11px;color:rgba(44,36,32,0.35);">Fill in [PERSONALISE] sections before sending.</span>
         </div>
       </div>
 
-      <div class="email-compose">
-        <h3>Email preview</h3>
-        <div class="compose-preview" id="emailPreview">Select a contact and template above to see a preview.</div>
+      <!-- Quick send from contacts -->
+      <div style="background:var(--cream);border:1px solid var(--taupe);padding:24px;">
+        <p style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;">Quick send from contacts tab</p>
+        <p style="font-size:12px;color:rgba(44,36,32,0.5);line-height:1.7;">Use the Pre-call and Post-call buttons in the Contacts table to send the relevant email for the client's current programme week. Set their week in the contact record to get the right template automatically.</p>
       </div>
     </div>
 
@@ -387,6 +424,22 @@
         <option value="active">Active client</option>
         <option value="waitlist">Waitlist</option>
         <option value="completed">Completed</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Programme week</label>
+      <select class="form-select" id="inp-week">
+        <option value="0">Not started</option>
+        <option value="1">Week 1</option>
+        <option value="2">Week 2</option>
+        <option value="3">Week 3</option>
+        <option value="4">Week 4</option>
+        <option value="5">Week 5</option>
+        <option value="6">Week 6</option>
+        <option value="7">Week 7</option>
+        <option value="8">Week 8</option>
+        <option value="9">Week 9</option>
+        <option value="10">Week 10</option>
       </select>
     </div>
     <div class="form-row">
@@ -521,6 +574,7 @@ function closeAddModal() {
   document.getElementById('addModal').classList.remove('open')
   ;['fname','lname','email','notes'].forEach(f => document.getElementById('inp-'+f).value = '')
   document.getElementById('inp-status').value = 'lead'
+  document.getElementById('inp-week').value = '0'
 }
 
 function saveContact() {
@@ -531,6 +585,7 @@ function saveContact() {
     id: 'c' + Date.now(),
     fname, lname: document.getElementById('inp-lname').value.trim(),
     email, status: document.getElementById('inp-status').value,
+    week: parseInt(document.getElementById('inp-week').value) || 0,
     notes: document.getElementById('inp-notes').value.trim(),
     added: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })
   }
@@ -554,79 +609,737 @@ function deleteContact(id) {
   renderOverview()
 }
 
-// ── EMAILS ──
-function populateEmailSelects() {
-  const opts = '<option value="">— select contact —</option>' + state.contacts.map(c => `<option value="${c.id}">${c.fname} ${c.lname||''} (${c.email})</option>`).join('')
-  document.getElementById('preCallContact').innerHTML = opts
-  document.getElementById('postCallContact').innerHTML = opts
-}
+// ── EMAIL TEMPLATES ──
+const EMAILS = {
+  welcome: {
+    when: 'Day 1 of programme',
+    subject: () => `Welcome to your 10-Week Wellness Programme — everything you need to begin`,
+    body: (name, date) => `Hi ${name},
 
-function getEmailContent(type, contact) {
-  if (!contact) return ''
-  if (type === 'before') {
-    return `Subject: Our call is coming up — Longevity by Izabela
+Welcome. I am so glad you are here.
 
-Hi ${contact.fname},
+What you are about to begin is not a diet, a detox, or a challenge. It is a structured, evidence-informed process of giving your body the conditions it needs to work the way it was designed to.
 
-Your free discovery call is confirmed. Looking forward to speaking with you.
+Over the next 10 weeks, we will work together methodically — in the right order, at the right pace — to understand what is happening in your system, calm what needs calming, clear what needs clearing, and rebuild from a foundation that will hold long after the programme ends.
 
-Before we talk, it helps to think about:
-• What's the symptom bothering you most right now?
-• How long have you been dealing with it?
-• What have you already tried?
-• What would your life look like if this was fixed?
+WHAT HAPPENS THIS WEEK
+Your only job in Week 1 is to observe — not change. Complete your 7-day observation log (tracking energy, digestion, sleep, mood and stress each day) and work through your intake assessment over the first 5 days.
 
-We'll be on a video call — you'll find the link in your calendar invite.
+YOUR FIRST WEEK:
+Day 1: Begin your daily observation log
+Days 1–5: Complete intake assessment (all 12 sections)
+Days 6–7: Review your answers and send everything to me before our call
+Anytime: Order your lab test kits
 
-If anything changes, reschedule here: https://calendly.com/izabela-ostatek/15min
+LAB TESTS
+Recommended: DUTCH Plus (hormones and cortisol), GI-MAP (gut microbiome), IgG food sensitivity panel, comprehensive blood panel. We'll discuss prioritisation on our first call.
 
-See you soon,
+OUR FIRST CALL
+Your Week 1 coaching call is scheduled for ${date || '[DATE AND TIME]'}.
+
+I want you to walk into Week 1 knowing one thing: you are not broken. You are running a system that has never been properly assessed. That changes now.
+
+Warmly,
 Izabela
-Longevity by Izabela`
-  } else {
-    return `Subject: After our call — next steps
+Longevity by Izabela
+longevity.izabelaostatek.com`
+  },
+  'pre-1': {
+    when: 'Days 5–6 of Week 1',
+    subject: () => `Your Week 1 call is coming up — have you sent your assessment?`,
+    body: (name, date) => `Hi ${name},
 
-Hi ${contact.fname},
+Your first coaching call is ${date || '[DATE AND TIME]'}.
 
-It was really good to speak with you today.
+Before our session, please make sure you have sent:
+• Your 7-day observation log (all 7 days if possible, minimum 5)
+• Your intake assessment (all 12 sections)
 
-[Add what you heard from them here]
+THINK ABOUT BEFORE THE CALL:
+• What patterns do you notice in your observation log?
+• Which section of the assessment surprised you most?
+• What are your top 3 health goals for this programme?
 
-Based on our conversation, here's what I'd suggest as a next step:
-• [Next step 1]
-• [Next step 2]
-• [Next step 3]
+We will review your assessment together, discuss your lab tests, and map out what the next 9 weeks look like for you.
 
-I think [1:1 Coaching / Digital Program] would be the right fit for where you are right now. It covers exactly what we discussed and gives us the space to actually move things.
+If you have any questions before the call, reply here.
 
-If you're ready to go: [add your program link]
-If you'd like another call first: https://calendly.com/izabela-ostatek/15min
+See you ${date || 'soon'}.
 
-Reply here if you have any questions.
+Warmly,
+Izabela`
+  },
+  'post-1': {
+    when: 'Within 24h of Week 1 call',
+    subject: () => `Your Week 1 summary + everything you need for Week 2`,
+    body: (name, date) => `Hi ${name},
 
-Talk soon,
+It was great to connect today. You have done the foundational work this week — and the fact that you showed up with a completed assessment and an honest observation log tells me everything I need to know about how you will approach this programme.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: 2–3 lines — key insight from their assessment, primary health goal, most important pattern noted]
+
+WEEK 2: PREPARE THE BODY
+Theme: Reduce the load. Make space.
+
+This week is your first week of change — and it is intentionally gentle.
+
+THIS WEEK, REMOVE:
+• Alcohol (completely)
+• Coffee after noon
+• Sugary drinks and fruit juices
+• Takeaway more than twice
+• Obvious junk food and sweets
+
+THIS WEEK, ADD:
+• 500ml warm water every morning before anything else
+• Vegetables with every meal
+• A handful of walnuts, almonds, or pumpkin seeds as an afternoon snack
+• One herbal tea daily (chamomile, ginger, or peppermint)
+
+MOVEMENT: 20-minute walk every morning — even 10 minutes counts, but make it non-negotiable.
+
+No supplements this week. Your body needs a clean baseline first.
+
+Keep your observation log running daily. Your Week 2 homework will arrive 2 days before our next call.
+
+Warmly,
+Izabela`
+  },
+  'pre-2': {
+    when: 'Days 5–6 of Week 2',
+    subject: () => `Your Week 2 call is coming up — send me your homework first`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 2 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me:
+• Your completed Week 2 pre-session homework
+• Your observation log (Weeks 1 and 2 together if possible)
+
+THINK ABOUT BEFORE THE CALL:
+• What was the hardest thing to remove or reduce this week?
+• Did you notice any withdrawal symptoms — headaches, irritability, fatigue, cravings?
+• What subtle changes have you noticed, even small ones?
+
+However this week went, there is no wrong answer. We will work with exactly where you are.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-2': {
+    when: 'Within 24h of Week 2 call',
+    subject: () => `Your Week 2 summary + what starts this week (Week 3 begins)`,
+    body: (name, date) => `Hi ${name},
+
+Great session today. Week 2 was your first real test — and you showed up.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: what the client found hardest, what they noticed changing, any early wins]
+
+WEEK 3: REMOVE THE FIRE
+Theme: Full anti-inflammatory protocol begins.
+
+Days 2–4 of this week may feel rough — headaches, fatigue, irritability. This is withdrawal. It passes by Day 5. The other side of this week feels noticeably different.
+
+YOUR MORNING ROUTINE THIS WEEK:
+6:30am — 500ml warm water with lemon + shilajit
+6:45am — 500ml fresh celery juice (on empty stomach, nothing before except lemon water)
+Wait 15–30 minutes before eating or taking supplements
+7:15am — 20–30 minute walk
+7:45am — Breakfast + morning supplement stack
+
+FULLY REMOVED THIS WEEK (no exceptions):
+Refined sugar, gluten, conventional dairy, seed oils, alcohol, ultra-processed foods
+
+SUPPLEMENTS TO BEGIN:
+Morning with breakfast: Omega-3 (2–3g), Vitamin D3+K2, Quercetin+Bromelain (500mg), Zinc bisglycinate (15–25mg)
+Midday with lunch: Curcumin with piperine (500–1000mg), Boswellia (500mg)
+Before bed: Magnesium glycinate (300–400mg)
+
+I have attached the full Week 3 protocol guide. Please read it before Monday.
+
+Mindset: "Every meal is either feeding the fire or putting it out. I choose."
+
+Warmly,
+Izabela`
+  },
+  'pre-3': {
+    when: 'Days 5–6 of Week 3',
+    subject: () => `Your Week 3 call is coming up — how did Days 2–4 treat you?`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 3 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 3 pre-session homework — especially the 5-marker tracking scores.
+
+THINK ABOUT BEFORE THE CALL:
+• How did Days 2–4 feel? When did you notice a shift?
+• How is the celery juice routine? Any practical challenges?
+• Which meals from the anti-inflammatory protocol are working for you?
+• Are you taking all supplements at the right times?
+
+The hardest days are usually behind you by now. Come ready to notice what has changed — even subtly — in your energy, digestion, skin, or mood.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-3': {
+    when: 'Within 24h of Week 3 call',
+    subject: () => `Your Week 3 summary + what Week 4 adds`,
+    body: (name, date) => `Hi ${name},
+
+Well done on completing Week 3. This is the week most clients describe as a turning point.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: die-off symptoms they experienced, what shifted by Day 5, any protocol adjustments made]
+
+WEEK 4: DEEPEN THE ANTI-INFLAMMATORY PROTOCOL
+Theme: Add lymphatic activation and nervous system support.
+
+The anti-inflammatory diet continues unchanged. This week adds the practices that prepare your body for detox.
+
+NEW THIS WEEK:
+
+DRY BODY BRUSHING (6:30am, 5–7 minutes):
+Natural bristle brush. Always brush toward the heart. Sequence: feet → legs → hands → arms → abdomen (clockwise) → chest.
+
+CONTRAST SHOWER (6:45am):
+2 minutes warm → 30 seconds cold → repeat 3 cycles → end cold.
+
+BOX BREATHING (7:15am, 10 minutes — non-negotiable):
+Inhale 4 counts → hold 4 → exhale 4 → hold 4. Repeat for 10 minutes. This directly lowers cortisol.
+
+CASTOR OIL PACKS (Monday, Wednesday, Friday evenings):
+Soak flannel in cold-pressed castor oil → place over liver (right side, under lower ribs) → cover with cling film → warm heat pack on top → lie down 45–60 minutes.
+
+SLEEP PROTOCOL — begins now, non-negotiable:
+• Consistent wake time every day including weekends
+• No screens 45 minutes before bed
+• Bedroom 17–19°C, completely dark
+• Magnesium glycinate + ashwagandha 30–60 minutes before sleep
+
+I have attached the full Week 4 guide.
+
+Mindset: "I am building the conditions my body needs to heal itself."
+
+Warmly,
+Izabela`
+  },
+  'pre-4': {
+    when: 'Days 5–6 of Week 4',
+    subject: () => `Your Week 4 call is coming up — which practices are sticking?`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 4 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 4 pre-session homework — including the 5-marker comparison (Week 1 vs Week 4).
+
+THINK ABOUT BEFORE THE CALL:
+• Which of the 5 markers has improved most (energy, skin, digestion, joints, mood)?
+• How is the breathwork practice going? Any resistance to doing it daily?
+• What effect do the castor oil packs have on you?
+• Is the sleep protocol in place? Consistent wake time set?
+
+We will confirm your readiness to begin Week 5 — the drainage pathway week. Please come prepared to be honest about your bowel movement frequency.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-4': {
+    when: 'Within 24h of Week 4 call',
+    subject: () => `Your Week 4 summary + the critical Week 5 begins`,
+    body: (name, date) => `Hi ${name},
+
+Four weeks in. The changes you are seeing in your markers are the result of four weeks of consistent, deliberate work. That matters.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: which markers improved, protocol adjustments, specific observation from the session]
+
+WEEK 5: OPEN THE DRAINAGE PATHWAYS
+Theme: Open all five exits before anything is mobilised.
+
+This week is non-negotiable and non-skippable. All five drainage pathways — bowel, liver/bile, lymph, kidneys, skin — must be open and functioning before Week 6 begins. If your bowel is not moving at least once daily by the end of this week, we will extend it before proceeding.
+
+NEW THIS WEEK:
+
+MORNING ADDITION: 500ml warm water with lemon + cayenne pinch + shilajit (triggers gastrocolic reflex and liver bile production).
+
+GREEN JUICE (7:15am daily — replaces celery juice):
+2 stalks celery, 1 cucumber, juice of 1 lemon, thumb of ginger, handful of spinach or kale, handful of fresh parsley. Optional: small beetroot.
+
+ZEOLITE (2:00pm and 5:00pm): 1 teaspoon in water. Must be at least 2 hours away from all supplements.
+
+EVENING ROTATION (choose one or two, rotate):
+A: Castor oil pack over full abdomen — 4–5x this week
+B: Epsom salt bath — at least 2x this week
+C: Infrared sauna — if accessible
+
+CHECKLIST BEFORE WEEK 6 CAN BEGIN:
+✓ Bowel moving 1–2x daily
+✓ Urinating at least 6–8x daily
+✓ Skin not severely breaking out
+✓ Castor oil packs done at least 4x
+✓ Epsom salt bath done at least 2x
+✓ Daily green juice in place
+
+Mindset: "I am opening the doors before I clear the house. The order matters."
+
+Warmly,
+Izabela`
+  },
+  'pre-5': {
+    when: 'Days 5–6 of Week 5',
+    subject: () => `Your Week 5 call is coming up — the drainage checklist is critical`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 5 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 5 pre-session homework — particularly the drainage checklist. This determines whether we proceed to Week 6.
+
+PLEASE COME PREPARED TO ANSWER HONESTLY:
+• How many bowel movements per day? (This is the gate.)
+• How many times are you urinating? (Target: 6–8x)
+• Has your skin been breaking out? (Mild is expected; severe means we wait)
+• Have you completed the castor oil packs at least 4x?
+• Have you done Epsom salt baths at least 2x?
+
+ALSO — make sure you have sourced for Week 6:
+Black walnut hull tincture, wormwood capsules, clove capsules, mimosa pudica seed, activated charcoal capsules, bentonite clay, modified citrus pectin, broken cell wall chlorella.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-5': {
+    when: 'Within 24h of Week 5 call',
+    subject: () => `Your Week 5 summary + Week 6 begins [DRAINAGE CONFIRMED]`,
+    body: (name, date) => `Hi ${name},
+
+Today we confirmed your drainage pathways are open. You are ready for Week 6.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: drainage checklist results, any adjustments made, readiness confirmed or extension noted]
+
+WEEK 6: THE DEEP DETOX — HEAVY METALS AND PARASITES
+Theme: Mobilise, bind, and eliminate what has been stored for years.
+
+This is the most intensive week of the programme. Please read carefully before you begin.
+
+WHAT TO EXPECT:
+Days 2, 3, and 4 are often the hardest. What you feel — headaches, fatigue, skin changes, strong emotions — is confirmation the protocol is working (Herxheimer reaction). Do not push through with coffee or stimulants. Rest more than feels necessary. Drink more water than feels necessary.
+
+IF YOU EXPERIENCE:
+• Headaches → increase water + take activated charcoal
+• Fatigue → rest, reduce morning protocol duration
+• Skin breakout → Epsom salt bath, increase lymphatic brushing
+• Emotional intensity → this is normal and important. Journal what comes up.
+• Nausea → reduce herb doses slightly, increase binders
+
+KEY ADDITIONS THIS WEEK:
+Heavy Metal Detox Smoothie (replaces green juice — exact recipe in guide, do not substitute ingredients)
+Antiparasitic protocol: black walnut, wormwood, clove, mimosa pudica — 30 min before lunch daily
+Binder rotation: activated charcoal on odd days / bentonite clay on even days — 10am
+Hydration: 4L daily (set a timer to drink every 30–45 minutes)
+
+I will check in with you around Day 3–4 this week. If anything feels overwhelming before then, reply to this email.
+
+Mindset: "The discomfort is the release. Every symptom is proof the body is finally doing what it has been trying to do."
+
+Warmly,
+Izabela`
+  },
+  'pre-6': {
+    when: 'Days 5–6 of Week 6 (also send a mid-week check-in around Day 3)',
+    subject: () => `Checking in — how is Week 6 going? (Your call is coming up)`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 6 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 6 pre-session homework — particularly the die-off symptom tracker.
+
+THINK ABOUT BEFORE THE CALL:
+• What was the hardest day this week? How did you manage it?
+• Which die-off symptoms did you experience and when did they peak?
+• How are you feeling today compared to before Week 6 began?
+• Did any unexpected emotions surface?
+• How are you managing hydration and rest?
+
+Week 6 is the hardest week of the programme. You have done it. Come ready to reflect — and celebrate.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-6': {
+    when: 'Within 24h of Week 6 call',
+    subject: () => `Your Week 6 summary — the hardest phase is complete`,
+    body: (name, date) => `Hi ${name},
+
+You have completed the most demanding phase of this programme. That is not a small thing.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: die-off symptoms experienced, emotional themes that emerged, protocol adjustments, what the client found most impactful]
+
+WEEK 7: CONSOLIDATE AND TRANSITION
+Theme: Seal the detox. Begin gut repair. First careful reintroductions.
+
+The heavy work is done. This week is the bridge between clearing and rebuilding.
+
+BINDERS — TAPERING:
+• Activated charcoal: Days 1–3 only
+• Bentonite clay: Days 1–2 only
+• Modified citrus pectin: Days 1–4 only
+
+GUT REPAIR BEGINS:
+• L-glutamine: 5g in room-temperature water on empty stomach — morning, between meals, and before bed (3x daily)
+• Multi-strain probiotic with food (L. acidophilus, B. longum, S. boulardii)
+• Digestive enzymes with every meal
+• Bone broth or mushroom broth daily
+• Fermented foods: sauerkraut, kimchi, or coconut yogurt — start with 1–2 tablespoons
+
+FOOD REINTRODUCTIONS — ONE EVERY 48 HOURS:
+Day 1: Sheep or goat kefir (100ml with breakfast)
+Day 3: Gluten-free oats — only if no reaction to kefir
+Day 5: Cooked goat cheese (small amount)
+Day 7: Nightshade food (tomatoes or peppers)
+
+If any reaction occurs (bloating, skin, fatigue, mood shift, brain fog) — remove that food, record it as a trigger. Wait 48 hours before testing the next food.
+
+Mindset: "I am not going back to how things were. I am choosing exactly what comes with me."
+
+Warmly,
+Izabela`
+  },
+  'pre-7': {
+    when: 'Days 5–6 of Week 7',
+    subject: () => `Your Week 7 call is coming up — send me your reintroduction results`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 7 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me:
+• Your completed Week 7 pre-session homework
+• Your food reintroduction tracker (all four reintroductions with reactions noted)
+
+THINK ABOUT BEFORE THE CALL:
+• Which reintroduced foods triggered a reaction? What did you notice?
+• Which foods surprised you by being well tolerated?
+• How does your gut feel now compared to Week 1?
+
+We will build your Personal Trigger Food List and Personal Approved Food List in this session. Come with your honest observations — these become the foundation of Week 8.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-7': {
+    when: 'Within 24h of Week 7 call',
+    subject: () => `Your Week 7 summary + your personal food lists + Week 8 begins`,
+    body: (name, date) => `Hi ${name},
+
+Seven weeks in. You have cleared the system and begun rebuilding it. This week marks a real shift.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: reintroduction results, personal trigger list, personal approved list, gut repair progress]
+
+YOUR PERSONAL FOOD LISTS (from today's session):
+
+TRIGGER FOODS (remove or minimise going forward):
+[PERSONALISE]
+
+CONFIRMED APPROVED FOODS (your safe range):
+[PERSONALISE]
+
+WEEK 8: REBUILD THE GUT AND DESIGN LASTING NUTRITION
+Theme: Gut healing deepens. Sustainable nutrition framework locked in.
+
+EXPANDING YOUR FOOD RANGE:
+New proteins: tempeh, organic lamb, sardines, mackerel
+New vegetables: artichoke, asparagus, fennel, pak choi, cavolo nero
+New grains (if tolerated): buckwheat, millet, teff
+
+HOMEWORK FOR THIS WEEK (bring answers to next call):
+1. Identify 5 meals you can confidently order at most restaurants
+2. Design your travel day protocol (what you eat before leaving / at the airport / on arrival)
+3. Build your travel snack kit list
+
+MOVEMENT — UP TO 4 SESSIONS THIS WEEK:
+Walk or hike (30–40 min), strength training, yoga, Pilates, or swimming — whatever you enjoy most.
+
+Mindset: "I can eat well anywhere. This is a skill, not a sacrifice."
+
+Warmly,
+Izabela`
+  },
+  'pre-8': {
+    when: 'Days 5–6 of Week 8',
+    subject: () => `Your Week 8 call is coming up — bring your restaurant and travel plans`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 8 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 8 pre-session homework — particularly the restaurant and travel protocol sections.
+
+HAVE READY FOR THE CALL:
+• Your 5 confirmed restaurant default meals
+• Your travel day protocol (morning to arrival)
+• Any reactions to new foods introduced this week
+
+This session is about making your protocol work in the real world — restaurants, travel, social dinners. Come ready to make it practical.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-8': {
+    when: 'Within 24h of Week 8 call',
+    subject: () => `Your Week 8 summary + your restaurant protocol + Week 9 begins`,
+    body: (name, date) => `Hi ${name},
+
+Eight weeks in. Your nutrition framework is taking shape — and it is designed for how you actually live.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: sustainable nutrition framework agreed, restaurant defaults confirmed, travel protocol]
+
+YOUR RESTAURANT DEFAULTS (confirmed today):
+[PERSONALISE: client's 5 restaurant defaults]
+
+WEEK 9: SLEEP, STRESS, AND MOVEMENT
+Theme: Systematise the three pillars that sustain everything else.
+
+All the work of the past 8 weeks will slowly erode if sleep remains poor, stress unmanaged, and movement inconsistent.
+
+YOUR MORNING PROTOCOL — THE SAME EVERY DAY:
+6:00am — Wake (same time every day including weekends)
+6:05am — No phone for first 20 minutes
+6:10am — 500ml warm water with lemon and shilajit
+6:20am — 10 minutes morning sunlight
+6:30am — Cold shower (minimum 30 seconds fully cold)
+6:45am — 10 minutes box breathing
+7:00am — Movement
+
+WEEK 9 MOVEMENT STRUCTURE:
+Monday: Zone 2 cardio 30–45 min (walk, jog, cycle, swim)
+Tuesday: Rest or gentle yoga
+Wednesday: Strength training — full body, 45 min
+Thursday: Zone 2 cardio or 30-minute walk
+Friday: Strength training
+Saturday: Hike, swim, sport, or anything active 60+ min
+Sunday: Rest — walking only
+
+STRESS RESPONSE — NON-NEGOTIABLE:
+3:00pm daily — Take 60 seconds. Note stress level 1–10. If above 6: 5 minutes box breathing before continuing.
+
+EVENING PROTOCOL:
+7:00pm — Dinner — eating window closes by 8pm
+8:00pm — Wind-down begins — phone on do not disturb or in another room
+9:00pm — Magnesium (400mg), Ashwagandha (300mg)
+9:30pm — In bed, room 17–19°C, completely dark
+
+Mindset: "I cannot eliminate stress. I can change how my body metabolises it."
+
+Warmly,
+Izabela`
+  },
+  'pre-9': {
+    when: 'Days 5–6 of Week 9',
+    subject: () => `Your Week 9 call is coming up — how are the three pillars holding?`,
+    body: (name, date) => `Hi ${name},
+
+Your Week 9 coaching call is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me your completed Week 9 pre-session homework — sleep tracking and movement log.
+
+THINK ABOUT BEFORE THE CALL:
+• How consistent has your wake time been, including weekends?
+• Which movement sessions felt best? Which were hardest to commit to?
+• What is revealing itself in the 3pm stress check-in?
+• How is your sleep quality compared to Week 1?
+
+We will use this session to lock in your systems for Week 10 and beyond. Start noticing this week: what has become automatic?
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-9': {
+    when: 'Within 24h of Week 9 call',
+    subject: () => `Your Week 9 summary + your final week begins`,
+    body: (name, date) => `Hi ${name},
+
+Nine weeks. The systems are in place. Week 10 is about embedding what you have built — and deciding who you are on the other side of this.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: sleep quality progress, movement habits established, stress management observations]
+
+WEEK 10: BUILD TO LAST
+Theme: Sustainability audit. Identity lock. The standard you hold from here.
+
+No new practices are added this week. The daily protocol continues exactly as Week 9. The focus shifts from doing to embedding.
+
+YOUR HOMEWORK FOR THIS WEEK:
+
+DAYS 4–5: SUSTAINABILITY AUDIT
+Answer honestly:
+• What held throughout the 10 weeks? (What became automatic)
+• What kept breaking? (Which practices kept collapsing — and why)
+• What made the biggest difference to how you feel?
+• What do you want to keep forever?
+• What do you want to let go of or simplify?
+• Where are you most likely to slip?
+
+DAYS 5–6: THE 12-MONTH HEALTH VISION
+Write in detail:
+• What does your body feel like on a normal Tuesday morning in 12 months?
+• What does your energy look like throughout the day?
+• What have you stopped doing that used to drain you?
+• What does someone close to you notice about you?
+
+DAYS 6–7: IDENTITY LOCK
+Write 5–7 personal statements beginning "I am someone who..."
+Read them every morning for the first 30 days after the programme ends.
+
+Send everything to me before our final session.
+
+It has been a privilege to work through this with you.
+
+Warmly,
+Izabela`
+  },
+  'pre-10': {
+    when: 'Days 6–7 of Week 10',
+    subject: () => `Your final session is almost here — have you sent your homework?`,
+    body: (name, date) => `Hi ${name},
+
+Your final coaching session is ${date || '[DATE AND TIME]'}.
+
+Before we speak, please send me:
+• Your completed sustainability audit (Days 4–5)
+• Your 12-month health vision (Days 5–6)
+• Your identity statements: "I am someone who..." (5–7 statements)
+
+WHAT TO BRING:
+• Honesty about what held and what broke
+• Clarity on your non-negotiables going forward
+• Openness to celebrate the full 10-week journey
+
+We will also schedule your 30-day check-in call in this session — please have your diary available.
+
+See you ${date || 'soon'}.
+
+Warmly,
+Izabela`
+  },
+  'post-10': {
+    when: 'Within 24h of Week 10 final call',
+    subject: () => `You did it — your final summary, maintenance plan, and what comes next`,
+    body: (name, date) => `Hi ${name},
+
+Ten weeks. From observation to rebuild — and you showed up for all of it.
+
+FROM TODAY'S SESSION:
+[PERSONALISE: sustainability audit highlights, identity statements created, 12-month vision summary, what held vs what broke]
+
+YOUR LONG-TERM MAINTENANCE PLAN
+
+SUPPLEMENT STACK (minimum effective dose going forward):
+• Omega-3: 2g daily
+• Magnesium glycinate: 400mg before bed daily
+• Vitamin D3+K2: 4000 IU + 100mcg daily
+• Shilajit: 300mg daily (or 5 days on, 2 days off)
+• Zinc bisglycinate: 15mg daily
+• Probiotic (multi-strain): daily for 3 months, then 3x per week
+• Milk thistle: 400mg, 2–3x per week
+• NAC: 600mg, 2x per week
+• Activated charcoal: 2 caps, 1–2x per week between meals
+
+QUARTERLY: One week of chlorella (3g daily) + cilantro protocol
+ANNUAL: One week of black walnut + wormwood + clove (around a full moon)
+
+THE 5 LONG-TERM NUTRITION RULES:
+1. Default to whole foods — if it has more than 5 ingredients you cannot identify, it is not your standard
+2. Fatty fish 3x per week — forever
+3. Never skip vegetables — every meal has a vegetable
+4. Olive oil on everything — your primary fat
+5. The 80/20 rule — 80% protocol, 20% life. This is not failure. This is sustainability.
+
+THE MOVEMENT MINIMUM (for any week, any city):
+• Morning walk: 20 min — always possible
+• Cold shower: always possible
+• Breathwork: 10 min — always possible
+• One strength session: bodyweight only if no gym
+
+YOUR 30-DAY CHECK-IN IS SCHEDULED: [DATE]
+
+It has been a genuine privilege to work through this programme with you. You came in observing a system that was not working. You leave having rebuilt the foundation it all runs on. That is not a small thing.
+
+With warmth,
 Izabela
-Longevity by Izabela`
+Longevity by Izabela
+longevity.izabelaostatek.com`
   }
 }
 
-function openEmail(type) {
-  const selId = type === 'before' ? 'preCallContact' : 'postCallContact'
-  const contactId = document.getElementById(selId).value
+// ── EMAILS ──
+function populateEmailSelects() {
+  const opts = '<option value="">— select client —</option>' + state.contacts.map(c => `<option value="${c.id}">${c.fname} ${c.lname||''} (${c.email})</option>`).join('')
+  const emailContact = document.getElementById('emailContact')
+  if (emailContact) emailContact.innerHTML = opts
+}
+
+function updateEmailPreview() {
+  const type = document.getElementById('emailTypeSelect').value
+  const contactId = document.getElementById('emailContact').value
+  const callDate = document.getElementById('emailCallDate').value
   const contact = state.contacts.find(c => c.id === contactId)
-  if (!contact) { alert('Select a contact first.'); return }
-  const body = getEmailContent(type, contact)
-  const subject = type === 'before' ? `Our call is coming up — Longevity by Izabela` : `After our call — next steps`
+  const tpl = EMAILS[type]
+  if (!tpl) return
+
+  const name = contact ? contact.fname : '[Client Name]'
+  const subject = tpl.subject(name, callDate)
+  const body = tpl.body(name, callDate)
+
+  document.getElementById('emailSubjectPreview').textContent = subject
   document.getElementById('emailPreview').textContent = body
-  const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  window.open(mailto)
+}
+
+function launchEmail() {
+  const type = document.getElementById('emailTypeSelect').value
+  const contactId = document.getElementById('emailContact').value
+  const callDate = document.getElementById('emailCallDate').value
+  const contact = state.contacts.find(c => c.id === contactId)
+  const tpl = EMAILS[type]
+  if (!tpl) return
+
+  const name = contact ? contact.fname : '[Client Name]'
+  const to = contact ? contact.email : ''
+  const subject = tpl.subject(name, callDate)
+  const body = tpl.body(name, callDate)
+
+  if (!to) { alert('Select a client first.'); return }
+  window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
 }
 
 function quickSendEmail(id, type) {
   const contact = state.contacts.find(c => c.id === id)
   if (!contact) return
-  const body = getEmailContent(type, contact)
-  const subject = type === 'before' ? `Our call is coming up — Longevity by Izabela` : `After our call — next steps`
+  const week = contact.week || 1
+  const emailType = type === 'before' ? `pre-${week}` : `post-${week}`
+  const tpl = EMAILS[emailType] || EMAILS[type === 'before' ? 'pre-1' : 'post-1']
+  const subject = tpl.subject(contact.fname, '')
+  const body = tpl.body(contact.fname, '')
   window.open(`mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
 }
 

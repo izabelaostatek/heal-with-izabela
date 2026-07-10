@@ -415,7 +415,31 @@
 
       /* Remove decorative orbs on mobile */
       .hero-orb-1, .hero-orb-2 { display: none; }
+
+      /* Programme section mobile */
+      .phase-grid { grid-template-columns: 1fr 1fr !important; }
+      .weeks-grid { grid-template-columns: 1fr !important; }
     }
+    @media (max-width: 480px) {
+      .phase-grid { grid-template-columns: 1fr !important; }
+    }
+
+    /* ── PROGRAMME ── */
+    .programme { padding: 100px 24px; background: var(--cream-mid); }
+    .programme-wrap { max-width: 1100px; margin: 0 auto; }
+    .programme-intro { text-align: center; margin-bottom: 64px; }
+    .phase-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--taupe); margin-bottom: 64px; }
+    .phase-cell { background: var(--cream); padding: 32px 28px; }
+    .phase-label { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+    .phase-cell h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--brown); margin-bottom: 10px; }
+    .phase-cell p { font-size: 12px; color: rgba(44,36,32,0.55); line-height: 1.7; }
+    .weeks-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 56px; }
+    .week-row { background: var(--cream); border: 1px solid var(--taupe); padding: 22px 24px; display: flex; gap: 20px; align-items: flex-start; }
+    .week-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--taupe); font-weight: 300; flex-shrink: 0; line-height: 1; min-width: 44px; }
+    .week-meta { flex: 1; }
+    .week-tag { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+    .week-meta h4 { font-size: 13px; font-weight: 500; color: var(--brown); margin-bottom: 4px; }
+    .week-meta p { font-size: 11px; color: rgba(44,36,32,0.5); line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -551,6 +575,128 @@
       <h3>Digital Products</h3>
       <p>Self-paced guides and protocols you can begin immediately. Everything I'd tell a 1:1 client in the first four weeks, packaged so you can start now.</p>
       <a href="#guide" class="service-link">Browse the shop →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 10-WEEK PROGRAMME -->
+<section class="programme" id="programme">
+  <div class="programme-wrap">
+    <div class="programme-intro">
+      <span class="section-label">The 10-Week Longevity Programme</span>
+      <h2 class="section-title" style="margin-top:16px;">Everything your body needs.<br><em>In the right order.</em></h2>
+      <p style="font-size:14px;color:rgba(44,36,32,0.55);line-height:1.8;max-width:520px;margin:20px auto 0;">Not a meal plan. A methodical, phased protocol — built around how the body actually heals. We start with data, not intervention. Every step prepares the next one.</p>
+    </div>
+
+    <div class="phase-grid">
+      <div class="phase-cell">
+        <span class="phase-label">Phase 1 · Weeks 1–2</span>
+        <h3>Assess &amp; Prepare</h3>
+        <p>Observe before you change. Collect data, order lab tests, begin gentle dietary preparation.</p>
+      </div>
+      <div class="phase-cell">
+        <span class="phase-label">Phase 2 · Weeks 3–4</span>
+        <h3>Calm Inflammation</h3>
+        <p>Full anti-inflammatory protocol. Celery juice, targeted supplements, lymphatic activation and nervous system support.</p>
+      </div>
+      <div class="phase-cell">
+        <span class="phase-label">Phase 3 · Weeks 5–7</span>
+        <h3>Deep Detox</h3>
+        <p>Open all drainage pathways first. Remove heavy metals and parasites. Begin gut repair and careful food reintroductions.</p>
+      </div>
+      <div class="phase-cell">
+        <span class="phase-label">Phase 4 · Weeks 8–10</span>
+        <h3>Rebuild &amp; Integrate</h3>
+        <p>Design lasting nutrition, systematise sleep and movement, lock in the identity shift that makes it permanent.</p>
+      </div>
+    </div>
+
+    <div class="weeks-grid">
+      <div class="week-row">
+        <div class="week-num">01</div>
+        <div class="week-meta">
+          <span class="week-tag">Assess &amp; Prepare</span>
+          <h4>Map the System</h4>
+          <p>Observe everything. Change nothing. 7-day tracking, full intake assessment, lab test plan.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">02</div>
+        <div class="week-meta">
+          <span class="week-tag">Assess &amp; Prepare</span>
+          <h4>Prepare the Body</h4>
+          <p>Reduce the load. Alcohol, coffee, processed food out. Space made for what comes next.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">03</div>
+        <div class="week-meta">
+          <span class="week-tag">Calm Inflammation</span>
+          <h4>Remove the Fire</h4>
+          <p>Full anti-inflammatory protocol begins. Celery juice, supplement stack, 7 triggers removed.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">04</div>
+        <div class="week-meta">
+          <span class="week-tag">Calm Inflammation</span>
+          <h4>Deepen the Protocol</h4>
+          <p>Lymphatic activation, breathwork, cold therapy, castor oil packs, sleep protocol begins.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">05</div>
+        <div class="week-meta">
+          <span class="week-tag">Deep Detox</span>
+          <h4>Open the Drainage Pathways</h4>
+          <p>All five elimination exits confirmed open before anything is mobilised. Non-skippable.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">06</div>
+        <div class="week-meta">
+          <span class="week-tag">Deep Detox</span>
+          <h4>The Deep Detox</h4>
+          <p>Heavy metals, parasites, stored toxins removed. The most intensive week. Rest is the protocol.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">07</div>
+        <div class="week-meta">
+          <span class="week-tag">Deep Detox</span>
+          <h4>Consolidate &amp; Transition</h4>
+          <p>Seal the detox. Gut repair begins. L-glutamine, probiotics, first food reintroductions.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">08</div>
+        <div class="week-meta">
+          <span class="week-tag">Rebuild &amp; Integrate</span>
+          <h4>Rebuild the Gut</h4>
+          <p>Expand food variety. Design sustainable nutrition for restaurants, travel, real life.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">09</div>
+        <div class="week-meta">
+          <span class="week-tag">Rebuild &amp; Integrate</span>
+          <h4>Sleep, Stress &amp; Movement</h4>
+          <p>Build the three pillars that hold everything else. Structured systems, not willpower.</p>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-num">10</div>
+        <div class="week-meta">
+          <span class="week-tag">Rebuild &amp; Integrate</span>
+          <h4>Build to Last</h4>
+          <p>Sustainability audit. Identity lock. The standard you hold from here forward.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <p style="font-size:13px;color:rgba(44,36,32,0.45);margin-bottom:20px;">This programme is for people who are ready to do the work.</p>
+      <a href="javascript:void(0)" onclick="bookCall()" class="btn-primary">Apply for the programme</a>
     </div>
   </div>
 </section>
